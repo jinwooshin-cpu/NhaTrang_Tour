@@ -1,0 +1,998 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나트랑 6월 여행 · 가격 비교</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #F5EFE6;
+    --sand-dark: #E8DDCC;
+    --ocean: #1A5F7A;
+    --ocean-light: #2E86AB;
+    --teal: #0B7A75;
+    --teal-light: #12B5AD;
+    --coral: #E07A5F;
+    --ink: #1C1C1E;
+    --ink-mid: #3C3C3E;
+    --ink-light: #6C6C70;
+    --white: #FEFCF9;
+    --gold: #C9A84C;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sand);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--ocean);
+    color: var(--white);
+    padding: 3.5rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 80%, rgba(18, 181, 173, 0.25) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 20%, rgba(46, 134, 171, 0.3) 0%, transparent 55%);
+  }
+  .hero-wave {
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 40px;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 20px;
+    padding: 5px 14px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 600;
+    line-height: 1.3;
+    position: relative;
+    margin-bottom: 0.6rem;
+  }
+  .hero h1 span { color: var(--teal-light); }
+  .hero-sub {
+    font-size: 14px; color: rgba(255,255,255,0.65);
+    position: relative; margin-bottom: 1.8rem;
+  }
+  .hero-pills {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center; position: relative;
+  }
+  .pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px; color: rgba(255,255,255,0.85);
+  }
+
+  /* Family toggle */
+  .toggle-section {
+    display: flex; justify-content: center;
+    gap: 0; padding: 2rem 1rem 0.5rem;
+  }
+  .toggle-btn {
+    padding: 10px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500;
+    border: 1.5px solid var(--ocean);
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+    color: var(--ocean);
+  }
+  .toggle-btn:first-child { border-radius: 8px 0 0 8px; border-right: none; }
+  .toggle-btn:last-child { border-radius: 0 8px 8px 0; }
+  .toggle-btn.active {
+    background: var(--ocean);
+    color: white;
+  }
+
+  /* Family info cards */
+  .family-info {
+    display: flex; gap: 12px;
+    padding: 1rem 1.5rem 0;
+    max-width: 900px; margin: 0 auto;
+  }
+  .family-card {
+    flex: 1;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1.5px solid transparent;
+    transition: all 0.25s;
+    opacity: 0.45;
+  }
+  .family-card.active { opacity: 1; }
+  .family-card.doyun {
+    background: rgba(26,95,122,0.08);
+    border-color: var(--ocean-light);
+  }
+  .family-card.yedam {
+    background: rgba(11,122,117,0.08);
+    border-color: var(--teal);
+  }
+  .family-card .fc-name {
+    font-size: 13px; font-weight: 500; margin-bottom: 3px;
+  }
+  .family-card.doyun .fc-name { color: var(--ocean); }
+  .family-card.yedam .fc-name { color: var(--teal); }
+  .family-card .fc-detail {
+    font-size: 12px; color: var(--ink-light);
+  }
+
+  /* Main content */
+  .main { max-width: 900px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+
+  /* Table section */
+  .table-section { margin-bottom: 2.5rem; display: none; }
+  .table-section.visible { display: block; }
+
+  .table-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem;
+  }
+  .airline-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .dot-eairseoul { background: #1A5F7A; }
+  .dot-eastar { background: #0B7A75; }
+  .dot-airbusan { background: #C9A84C; }
+
+  .airline-label {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-mid);
+  }
+
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  }
+  .price-table thead th {
+    padding: 10px 14px;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-light);
+    text-align: left;
+    background: rgba(0,0,0,0.03);
+    border-bottom: 1px solid var(--sand-dark);
+  }
+  .price-table thead th:not(:first-child) { text-align: right; }
+
+  .price-table tbody tr {
+    border-bottom: 1px solid var(--sand);
+    transition: background 0.15s;
+  }
+  .price-table tbody tr:last-child { border-bottom: none; }
+  .price-table tbody tr:hover { background: rgba(26,95,122,0.03); }
+
+  .price-table td {
+    padding: 13px 14px;
+    font-size: 13px;
+    vertical-align: middle;
+  }
+  .price-table td:not(:first-child) { text-align: right; }
+
+  .product-name {
+    font-size: 13px; font-weight: 400; color: var(--ink);
+    line-height: 1.45; margin-bottom: 4px;
+  }
+  .product-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .ptag {
+    font-size: 10px; padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--sand); color: var(--ink-light);
+  }
+  .ptag.warn {
+    background: rgba(224,122,95,0.12);
+    color: var(--coral);
+  }
+
+  .base-price { font-size: 12px; color: var(--ink-light); }
+  .discount { color: var(--coral); font-weight: 500; font-size: 11px; }
+
+  .price-val { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .price-val.best {
+    color: var(--ocean);
+    position: relative;
+  }
+  .price-val.best::after {
+    content: '최저';
+    display: inline-block;
+    font-size: 9px; font-weight: 500;
+    background: var(--ocean);
+    color: white;
+    padding: 1px 5px; border-radius: 3px;
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+  .price-na { color: var(--sand-dark); font-size: 12px; }
+
+  /* Two-family combined */
+  .combined-section { display: none; }
+  .combined-section.visible { display: block; }
+  .combined-card {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    margin-bottom: 1rem;
+  }
+  .combined-card-header {
+    padding: 14px 18px 12px;
+    border-bottom: 1px solid var(--sand);
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .combined-card-header .product-name { margin-bottom: 3px; }
+  .combined-total-label {
+    font-size: 10px; color: var(--ink-light); text-align: right; margin-bottom: 3px;
+  }
+  .combined-total-val {
+    font-size: 18px; font-weight: 500; color: var(--ink); text-align: right;
+  }
+  .combined-total-val.best { color: var(--ocean); }
+  .combined-breakdown {
+    display: flex;
+  }
+  .breakdown-item {
+    flex: 1; padding: 12px 18px;
+    border-right: 1px solid var(--sand);
+  }
+  .breakdown-item:last-child { border-right: none; }
+  .breakdown-label {
+    font-size: 11px; color: var(--ink-light); margin-bottom: 4px;
+  }
+  .breakdown-val { font-size: 13px; font-weight: 500; }
+  .breakdown-val.doyun { color: var(--ocean); }
+  .breakdown-val.yedam { color: var(--teal); }
+  .breakdown-airline {
+    font-size: 10px; color: var(--ink-light); margin-top: 2px;
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex; gap: 0; margin-bottom: 1.2rem;
+    border-bottom: 1.5px solid var(--sand-dark);
+  }
+  .tab-btn {
+    padding: 8px 16px;
+    font-size: 12px; font-weight: 500;
+    background: none; border: none;
+    color: var(--ink-light); cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1.5px;
+    transition: all 0.18s;
+  }
+  .tab-btn.active { color: var(--ocean); border-bottom-color: var(--ocean); }
+
+  /* Section headers */
+  .section-heading {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 15px; font-weight: 600;
+    color: var(--ink); margin-bottom: 4px;
+  }
+  .section-desc {
+    font-size: 12px; color: var(--ink-light); margin-bottom: 1rem;
+  }
+
+  /* Note */
+  .note-bar {
+    background: rgba(26,95,122,0.07);
+    border-left: 3px solid var(--ocean-light);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    font-size: 12px; color: var(--ink-mid);
+    line-height: 1.6; margin-top: 1rem;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center; padding: 2rem;
+    font-size: 11px; color: var(--ink-light);
+    border-top: 1px solid var(--sand-dark);
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 2.5rem 1.2rem 2.5rem; }
+    .family-info { flex-direction: column; }
+    .price-table thead th, .price-table td { padding: 10px 10px; font-size: 12px; }
+    .combined-breakdown { flex-direction: column; }
+    .breakdown-item { border-right: none; border-bottom: 1px solid var(--sand); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-tag">✈ 나트랑 여름 여행</div>
+  <h1>6월 2일 출발 · <span>3박 5일</span><br>패키지 가격 비교</h1>
+  <p class="hero-sub" style="margin-top:0.5rem;">프리즘 여행사 · 인천·부산·청주 출발</p>
+  <div class="hero-pills">
+    <span class="pill">멜리아 빈펄 엠파이어</span>
+    <span class="pill">멜리아 깜란비치</span>
+    <span class="pill">셀렉텀노아</span>
+    <span class="pill">빈펄 비치프론트</span>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 40" preserveAspectRatio="none">
+    <path d="M0,20 C360,40 1080,0 1440,20 L1440,40 L0,40 Z" fill="#F5EFE6"/>
+  </svg>
+</div>
+
+<!-- Family toggle -->
+<div class="toggle-section">
+  <button class="toggle-btn active" onclick="setView('doyun')">도윤이네</button>
+  <button class="toggle-btn" onclick="setView('yedam')">예담이네</button>
+  <button class="toggle-btn" onclick="setView('combined')">두 가족 합산</button>
+</div>
+
+<!-- Family info -->
+<div class="family-info">
+  <div class="family-card doyun active" id="fc-doyun">
+    <div class="fc-name">🏠 도윤이네</div>
+    <div class="fc-detail">성인 2명 + 소아 2명</div>
+  </div>
+  <div class="family-card yedam" id="fc-yedam">
+    <div class="fc-name">🏠 예담이네</div>
+    <div class="fc-detail">성인 2명 + 소아 1명</div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ============ 도윤이네 ============ -->
+<div id="view-doyun" class="table-section visible">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('doyun','all')">전체</button>
+    <button class="tab-btn" onclick="switchTab('doyun','eastar')">이스타</button>
+    <button class="tab-btn" onclick="switchTab('doyun','airseoul')">에어서울</button>
+    <button class="tab-btn" onclick="switchTab('doyun','airbusan')">에어부산</button>
+  </div>
+
+  <!-- 이스타 -->
+  <div class="table-section visible doyun-eastar" style="display:block;">
+    <div class="table-header">
+      <span class="airline-dot dot-eastar"></span>
+      <span class="airline-label">이스타항공</span>
+    </div>
+    <table class="price-table">
+      <thead><tr>
+        <th style="width:45%;">상품명</th>
+        <th>기본가</th>
+        <th>성인 ×2</th>
+        <th>소아 ×2</th>
+        <th>합계</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="product-name">멜리아 깜란비치 2베드 풀빌라 가든뷰</div>
+            <div class="product-tags"><span class="ptag warn">⚠ 성인 4인 조건</span></div></td>
+          <td><span class="discount">19%↓</span><br><span class="base-price">639,000</span></td>
+          <td><span class="price-val">879,000</span></td>
+          <td><span class="price-val">703,200</span></td>
+          <td><span class="price-val">3,164,400</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어+알마</div>
+            <div class="product-tags"><span class="ptag">1박+2박</span></div></td>
+          <td><span class="discount">17%↓</span><br><span class="base-price">699,000</span></td>
+          <td><span class="price-val">949,000</span></td>
+          <td><span class="price-val">664,300</span></td>
+          <td><span class="price-val">3,226,600</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어 디럭스 룸</div></td>
+          <td><span class="discount">17%↓</span><br><span class="base-price">699,000</span></td>
+          <td><span class="price-val">799,000</span></td>
+          <td><span class="price-val">719,100</span></td>
+          <td><span class="price-val">3,036,200</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어 디럭스 룸</div>
+            <div class="product-tags"><span class="ptag">특가</span></div></td>
+          <td><span class="discount">21%↓</span><br><span class="base-price">539,000</span></td>
+          <td><span class="price-val">829,000</span></td>
+          <td><span class="price-val">746,100</span></td>
+          <td><span class="price-val">3,150,200</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어+깜란비치</div>
+            <div class="product-tags"><span class="ptag">1박+2박</span></div></td>
+          <td><span class="discount">19%↓</span><br><span class="base-price">619,000</span></td>
+          <td><span class="price-val">849,000</span></td>
+          <td><span class="price-val">679,200</span></td>
+          <td><span class="price-val">3,056,400</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">셀렉텀노아 프리미어 디럭스</div>
+            <div class="product-tags"><span class="ptag">1일 올인클루시브</span></div></td>
+          <td><span class="discount">18%↓</span><br><span class="base-price">749,000</span></td>
+          <td><span class="price-val">1,089,000</span></td>
+          <td><span class="price-val">769,000</span></td>
+          <td><span class="price-val">3,716,000</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 에어서울 -->
+  <div class="table-section doyun-airseoul" style="display:none; margin-top:1rem;">
+    <div class="table-header">
+      <span class="airline-dot dot-eairseoul"></span>
+      <span class="airline-label">에어서울</span>
+    </div>
+    <table class="price-table">
+      <thead><tr>
+        <th style="width:45%;">상품명</th>
+        <th>기본가</th>
+        <th>성인 ×2</th>
+        <th>소아 ×2</th>
+        <th>합계</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="product-name">셀렉텀노아 프리미어 디럭스</div>
+            <div class="product-tags"><span class="ptag">1일 올인클루시브</span></div></td>
+          <td><span class="discount">18%↓</span><br><span class="base-price">749,000</span></td>
+          <td><span class="price-val">1,089,000</span></td>
+          <td><span class="price-val">769,000</span></td>
+          <td><span class="price-val">3,716,000</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">빈펄 비치프론트 스튜디오 시티뷰</div></td>
+          <td><span class="discount">20%↓</span><br><span class="base-price">579,000</span></td>
+          <td><span class="price-val">899,000</span></td>
+          <td><span class="price-val">749,000</span></td>
+          <td><span class="price-val">3,296,000</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">빈펄 비치프론트+셀렉텀노아</div>
+            <div class="product-tags"><span class="ptag">1일 올인클루시브</span><span class="ptag">1박+2박</span></div></td>
+          <td><span class="discount">17%↓</span><br><span class="base-price">729,000</span></td>
+          <td><span class="price-val">1,299,000</span></td>
+          <td><span class="price-val">1,029,000</span></td>
+          <td><span class="price-val">4,656,000</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 에어부산 -->
+  <div class="table-section doyun-airbusan" style="display:none; margin-top:1rem;">
+    <div class="table-header">
+      <span class="airline-dot dot-airbusan"></span>
+      <span class="airline-label">에어부산</span>
+    </div>
+    <table class="price-table">
+      <thead><tr>
+        <th style="width:45%;">상품명</th>
+        <th>기본가</th>
+        <th>성인 ×2</th>
+        <th>소아 ×2</th>
+        <th>합계</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어+알마</div>
+            <div class="product-tags"><span class="ptag">1박+2박</span></div></td>
+          <td><span class="discount">17%↓</span><br><span class="base-price">699,000</span></td>
+          <td><span class="price-val">999,000</span></td>
+          <td><span class="price-val">699,300</span></td>
+          <td><span class="price-val">3,396,600</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어 디럭스 룸</div></td>
+          <td><span class="discount">17%↓</span><br><span class="base-price">699,000</span></td>
+          <td><span class="price-val">799,000</span></td>
+          <td><span class="price-val">719,100</span></td>
+          <td><span class="price-val">3,036,200</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어 디럭스 룸</div>
+            <div class="product-tags"><span class="ptag">특가</span></div></td>
+          <td><span class="discount">21%↓</span><br><span class="base-price">539,000</span></td>
+          <td><span class="price-val">799,000</span></td>
+          <td><span class="price-val">719,100</span></td>
+          <td><span class="price-val best">3,036,200</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어+깜란비치</div>
+            <div class="product-tags"><span class="ptag">1박+2박</span></div></td>
+          <td><span class="discount">19%↓</span><br><span class="base-price">619,000</span></td>
+          <td><span class="price-val">879,000</span></td>
+          <td><span class="price-val">703,200</span></td>
+          <td><span class="price-val">3,164,400</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-bar">
+    💡 <strong>도윤이네 최저가:</strong> 멜리아 빈펄 엠파이어 디럭스 룸 (에어부산) — <strong>3,036,200원</strong><br>
+    ⚠️ 깜란비치 풀빌라는 성인 4인 이용 조건으로 두 가족 합산 이용 시에만 가능
+  </div>
+</div>
+
+<!-- ============ 예담이네 ============ -->
+<div id="view-yedam" class="table-section">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('yedam','all')">전체</button>
+    <button class="tab-btn" onclick="switchTab('yedam','eastar')">이스타</button>
+    <button class="tab-btn" onclick="switchTab('yedam','airseoul')">에어서울</button>
+    <button class="tab-btn" onclick="switchTab('yedam','airbusan')">에어부산</button>
+  </div>
+
+  <!-- 이스타 -->
+  <div class="table-section visible yedam-eastar" style="display:block;">
+    <div class="table-header">
+      <span class="airline-dot dot-eastar"></span>
+      <span class="airline-label">이스타항공</span>
+    </div>
+    <table class="price-table">
+      <thead><tr>
+        <th style="width:45%;">상품명</th>
+        <th>기본가</th>
+        <th>성인 ×2</th>
+        <th>소아 ×1</th>
+        <th>합계</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="product-name">멜리아 깜란비치 2베드 풀빌라 가든뷰</div>
+            <div class="product-tags"><span class="ptag warn">⚠ 성인 4인 조건</span></div></td>
+          <td><span class="discount">19%↓</span><br><span class="base-price">639,000</span></td>
+          <td><span class="price-val">879,000</span></td>
+          <td><span class="price-val">703,200</span></td>
+          <td><span class="price-val">2,461,200</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어+알마</div>
+            <div class="product-tags"><span class="ptag">1박+2박</span></div></td>
+          <td><span class="discount">17%↓</span><br><span class="base-price">699,000</span></td>
+          <td><span class="price-val">949,000</span></td>
+          <td><span class="price-val">664,300</span></td>
+          <td><span class="price-val">2,562,300</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어 디럭스 룸</div></td>
+          <td><span class="discount">17%↓</span><br><span class="base-price">699,000</span></td>
+          <td><span class="price-val">799,000</span></td>
+          <td><span class="price-val">719,100</span></td>
+          <td><span class="price-val">2,317,100</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어 디럭스 룸</div>
+            <div class="product-tags"><span class="ptag">특가</span></div></td>
+          <td><span class="discount">21%↓</span><br><span class="base-price">539,000</span></td>
+          <td><span class="price-val">829,000</span></td>
+          <td><span class="price-val">746,100</span></td>
+          <td><span class="price-val">2,404,100</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어+깜란비치</div>
+            <div class="product-tags"><span class="ptag">1박+2박</span></div></td>
+          <td><span class="discount">19%↓</span><br><span class="base-price">619,000</span></td>
+          <td><span class="price-val">849,000</span></td>
+          <td><span class="price-val">679,200</span></td>
+          <td><span class="price-val">2,377,200</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">셀렉텀노아 프리미어 디럭스</div>
+            <div class="product-tags"><span class="ptag">1일 올인클루시브</span></div></td>
+          <td><span class="discount">18%↓</span><br><span class="base-price">749,000</span></td>
+          <td><span class="price-val">1,089,000</span></td>
+          <td><span class="price-val">769,000</span></td>
+          <td><span class="price-val">2,947,000</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 에어서울 -->
+  <div class="table-section yedam-airseoul" style="display:none; margin-top:1rem;">
+    <div class="table-header">
+      <span class="airline-dot dot-eairseoul"></span>
+      <span class="airline-label">에어서울</span>
+    </div>
+    <table class="price-table">
+      <thead><tr>
+        <th style="width:45%;">상품명</th>
+        <th>기본가</th>
+        <th>성인 ×2</th>
+        <th>소아 ×1</th>
+        <th>합계</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="product-name">셀렉텀노아 프리미어 디럭스</div>
+            <div class="product-tags"><span class="ptag">1일 올인클루시브</span></div></td>
+          <td><span class="discount">18%↓</span><br><span class="base-price">749,000</span></td>
+          <td><span class="price-val">1,089,000</span></td>
+          <td><span class="price-val">769,000</span></td>
+          <td><span class="price-val">2,947,000</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">빈펄 비치프론트 스튜디오 시티뷰</div></td>
+          <td><span class="discount">20%↓</span><br><span class="base-price">579,000</span></td>
+          <td><span class="price-val">899,000</span></td>
+          <td><span class="price-val">749,000</span></td>
+          <td><span class="price-val">2,547,000</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">빈펄 비치프론트+셀렉텀노아</div>
+            <div class="product-tags"><span class="ptag">1일 올인클루시브</span><span class="ptag">1박+2박</span></div></td>
+          <td><span class="discount">17%↓</span><br><span class="base-price">729,000</span></td>
+          <td><span class="price-val">1,299,000</span></td>
+          <td><span class="price-val">1,029,000</span></td>
+          <td><span class="price-val">3,627,000</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 에어부산 -->
+  <div class="table-section yedam-airbusan" style="display:none; margin-top:1rem;">
+    <div class="table-header">
+      <span class="airline-dot dot-airbusan"></span>
+      <span class="airline-label">에어부산</span>
+    </div>
+    <table class="price-table">
+      <thead><tr>
+        <th style="width:45%;">상품명</th>
+        <th>기본가</th>
+        <th>성인 ×2</th>
+        <th>소아 ×1</th>
+        <th>합계</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어+알마</div>
+            <div class="product-tags"><span class="ptag">1박+2박</span></div></td>
+          <td><span class="discount">17%↓</span><br><span class="base-price">699,000</span></td>
+          <td><span class="price-val">999,000</span></td>
+          <td><span class="price-val">699,300</span></td>
+          <td><span class="price-val">2,697,300</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어 디럭스 룸</div></td>
+          <td><span class="discount">17%↓</span><br><span class="base-price">699,000</span></td>
+          <td><span class="price-val">799,000</span></td>
+          <td><span class="price-val">719,100</span></td>
+          <td><span class="price-val">2,317,100</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어 디럭스 룸</div>
+            <div class="product-tags"><span class="ptag">특가</span></div></td>
+          <td><span class="discount">21%↓</span><br><span class="base-price">539,000</span></td>
+          <td><span class="price-val">799,000</span></td>
+          <td><span class="price-val">719,100</span></td>
+          <td><span class="price-val best">2,317,100</span></td>
+        </tr>
+        <tr>
+          <td><div class="product-name">멜리아 빈펄 엠파이어+깜란비치</div>
+            <div class="product-tags"><span class="ptag">1박+2박</span></div></td>
+          <td><span class="discount">19%↓</span><br><span class="base-price">619,000</span></td>
+          <td><span class="price-val">879,000</span></td>
+          <td><span class="price-val">703,200</span></td>
+          <td><span class="price-val">2,461,200</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-bar">
+    💡 <strong>예담이네 최저가:</strong> 멜리아 빈펄 엠파이어 디럭스 룸 (에어부산) — <strong>2,317,100원</strong><br>
+    ⚠️ 깜란비치 풀빌라는 성인 4인 이용 조건으로 두 가족 합산 이용 시에만 가능
+  </div>
+</div>
+
+<!-- ============ 두 가족 합산 ============ -->
+<div id="view-combined" class="combined-section">
+  <p class="section-desc" style="margin-bottom:1.2rem;">같은 호텔·항공 기준 두 가족 합산 총액입니다.</p>
+
+  <div class="combined-card">
+    <div class="combined-card-header">
+      <div>
+        <div class="product-name">멜리아 빈펄 엠파이어 디럭스 룸 · 에어부산</div>
+        <div class="product-tags"><span class="ptag">특가 21%↓</span><span class="ptag" style="background:#E8F4E8; color:#0B7A75;">✔ 두 가족 최저 조합</span></div>
+      </div>
+      <div>
+        <div class="combined-total-label">두 가족 합산</div>
+        <div class="combined-total-val best">5,353,300원</div>
+      </div>
+    </div>
+    <div class="combined-breakdown">
+      <div class="breakdown-item">
+        <div class="breakdown-label">도윤이네 (성인2+소아2)</div>
+        <div class="breakdown-val doyun">3,036,200원</div>
+        <div class="breakdown-airline">에어부산 · 멜리아 빈펄 엠파이어 디럭스</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">예담이네 (성인2+소아1)</div>
+        <div class="breakdown-val yedam">2,317,100원</div>
+        <div class="breakdown-airline">에어부산 · 멜리아 빈펄 엠파이어 디럭스</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="combined-card">
+    <div class="combined-card-header">
+      <div>
+        <div class="product-name">멜리아 빈펄 엠파이어 디럭스 룸 · 이스타</div>
+        <div class="product-tags"><span class="ptag">17%↓</span></div>
+      </div>
+      <div>
+        <div class="combined-total-label">두 가족 합산</div>
+        <div class="combined-total-val">5,353,300원</div>
+      </div>
+    </div>
+    <div class="combined-breakdown">
+      <div class="breakdown-item">
+        <div class="breakdown-label">도윤이네 (성인2+소아2)</div>
+        <div class="breakdown-val doyun">3,036,200원</div>
+        <div class="breakdown-airline">이스타 · 멜리아 빈펄 엠파이어 디럭스</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">예담이네 (성인2+소아1)</div>
+        <div class="breakdown-val yedam">2,317,100원</div>
+        <div class="breakdown-airline">이스타 · 멜리아 빈펄 엠파이어 디럭스</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="combined-card">
+    <div class="combined-card-header">
+      <div>
+        <div class="product-name">멜리아 빈펄 엠파이어+깜란비치 · 이스타</div>
+        <div class="product-tags"><span class="ptag">19%↓</span><span class="ptag">1박+2박</span></div>
+      </div>
+      <div>
+        <div class="combined-total-label">두 가족 합산</div>
+        <div class="combined-total-val">5,433,600원</div>
+      </div>
+    </div>
+    <div class="combined-breakdown">
+      <div class="breakdown-item">
+        <div class="breakdown-label">도윤이네 (성인2+소아2)</div>
+        <div class="breakdown-val doyun">3,056,400원</div>
+        <div class="breakdown-airline">이스타 · 빈펄엠파이어+깜란비치</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">예담이네 (성인2+소아1)</div>
+        <div class="breakdown-val yedam">2,377,200원</div>
+        <div class="breakdown-airline">이스타 · 빈펄엠파이어+깜란비치</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="combined-card">
+    <div class="combined-card-header">
+      <div>
+        <div class="product-name">멜리아 깜란비치 2베드 풀빌라 가든뷰 · 이스타</div>
+        <div class="product-tags"><span class="ptag">19%↓</span><span class="ptag warn">⚠ 성인 4인 이용조건 — 두 가족 합실 시 가능</span></div>
+      </div>
+      <div>
+        <div class="combined-total-label">두 가족 합산</div>
+        <div class="combined-total-val">5,625,600원</div>
+      </div>
+    </div>
+    <div class="combined-breakdown">
+      <div class="breakdown-item">
+        <div class="breakdown-label">도윤이네 (성인2+소아2)</div>
+        <div class="breakdown-val doyun">3,164,400원</div>
+        <div class="breakdown-airline">이스타 · 깜란비치 풀빌라</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">예담이네 (성인2+소아1)</div>
+        <div class="breakdown-val yedam">2,461,200원</div>
+        <div class="breakdown-airline">이스타 · 깜란비치 풀빌라</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="combined-card">
+    <div class="combined-card-header">
+      <div>
+        <div class="product-name">셀렉텀노아 프리미어 디럭스 · 에어서울/이스타</div>
+        <div class="product-tags"><span class="ptag">18%↓</span><span class="ptag">1일 올인클루시브</span></div>
+      </div>
+      <div>
+        <div class="combined-total-label">두 가족 합산</div>
+        <div class="combined-total-val">6,663,000원</div>
+      </div>
+    </div>
+    <div class="combined-breakdown">
+      <div class="breakdown-item">
+        <div class="breakdown-label">도윤이네 (성인2+소아2)</div>
+        <div class="breakdown-val doyun">3,716,000원</div>
+        <div class="breakdown-airline">에어서울/이스타 · 셀렉텀노아</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">예담이네 (성인2+소아1)</div>
+        <div class="breakdown-val yedam">2,947,000원</div>
+        <div class="breakdown-airline">에어서울/이스타 · 셀렉텀노아</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-bar">
+    💡 항공사를 달리해도 호텔이 같으면 같이 다닐 수 있어요. 두 가족이 항공을 따로 예약할 경우 각자 최저 항공사 선택 가능.<br>
+    ⚠️ 깜란비치 풀빌라 한 객실 공유 시 인원 조건은 여행사 확인 필요.
+  </div>
+</div>
+
+<!-- ============ 항공권 별도 vs 패키지 비교 ============ -->
+<div style="max-width:900px; margin: 0 auto 3rem; padding: 0 1.5rem;">
+  <div style="border-top: 1.5px solid var(--sand-dark); padding-top: 2rem; margin-bottom: 1.2rem;">
+    <div style="font-family:'Noto Serif KR',serif; font-size:15px; font-weight:600; color:var(--ink); margin-bottom:4px;">
+      ✈️ 항공권 별도 티케팅 vs 패키지, 어느 쪽이 이득?
+    </div>
+    <div style="font-size:12px; color:var(--ink-light);">도윤이네 기준 (성인 2 + 소아 2)</div>
+  </div>
+
+  <!-- 비교 카드 -->
+  <div style="display:flex; gap:12px; margin-bottom:1rem; flex-wrap:wrap;">
+
+    <div style="flex:1; min-width:200px; background:var(--white); border-radius:12px; padding:1.2rem 1.4rem; box-shadow:0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04); border-top: 3px solid var(--coral);">
+      <div style="font-size:11px; font-weight:500; letter-spacing:0.07em; text-transform:uppercase; color:var(--coral); margin-bottom:10px;">별도 티케팅</div>
+      <div style="font-size:22px; font-weight:500; color:var(--ink); margin-bottom:14px;">2,654,000원</div>
+      <div style="font-size:12px; color:var(--ink-light); line-height:1.9;">
+        ✈️ 항공권만 포함<br>
+        🏨 호텔 별도 예약 필요<br>
+        🚐 픽업/샌딩 별도<br>
+        📋 여행자보험 별도
+      </div>
+    </div>
+
+    <div style="flex:1; min-width:200px; background:var(--white); border-radius:12px; padding:1.2rem 1.4rem; box-shadow:0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04); border-top: 3px solid var(--ocean);">
+      <div style="font-size:11px; font-weight:500; letter-spacing:0.07em; text-transform:uppercase; color:var(--ocean); margin-bottom:10px;">패키지 (에어부산 최저)</div>
+      <div style="font-size:22px; font-weight:500; color:var(--ocean); margin-bottom:14px;">3,036,200원</div>
+      <div style="font-size:12px; color:var(--ink-light); line-height:1.9;">
+        ✈️ 항공권 포함<br>
+        🏨 멜리아 빈펄 엠파이어 디럭스 3박<br>
+        🚐 공항 픽업/샌딩 포함<br>
+        📋 여행자보험 포함
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 핵심 계산 -->
+  <div style="background:var(--white); border-radius:12px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);">
+    <div style="padding:14px 18px; border-bottom:1px solid var(--sand); background:rgba(0,0,0,0.02);">
+      <div style="font-size:12px; font-weight:500; color:var(--ink-mid);">패키지 vs 별도 티케팅 — 차액 분석</div>
+    </div>
+    <div style="padding:0 18px;">
+      <table style="width:100%; border-collapse:collapse; font-size:13px;">
+        <tr style="border-bottom:1px solid var(--sand);">
+          <td style="padding:12px 0; color:var(--ink-light);">패키지 총액</td>
+          <td style="padding:12px 0; text-align:right; font-weight:500;">3,036,200원</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--sand);">
+          <td style="padding:12px 0; color:var(--ink-light);">별도 항공권</td>
+          <td style="padding:12px 0; text-align:right; font-weight:500;">2,654,000원</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--sand);">
+          <td style="padding:12px 0; color:var(--ink-light);">
+            호텔 직접 예약 가능 예산<br>
+            <span style="font-size:11px; color:var(--coral);">패키지보다 저렴하려면 이 금액 이하여야 함</span>
+          </td>
+          <td style="padding:12px 0; text-align:right; font-weight:500; color:var(--coral);">382,200원</td>
+        </tr>
+        <tr>
+          <td style="padding:14px 0; color:var(--ink); font-weight:500;">
+            멜리아 빈펄 엠파이어 3박 직접 예약 시 예상가
+            <span style="display:block; font-size:11px; font-weight:400; color:var(--ink-light); margin-top:2px;">성인 4인 기준 (Booking.com 수준 추정)</span>
+          </td>
+          <td style="padding:14px 0; text-align:right; font-weight:500; color:var(--ink);">600,000원~<br><span style="font-size:11px; color:var(--ink-light);">이상</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 결론 -->
+  <div style="margin-top:1rem; background:rgba(26,95,122,0.08); border-left:3px solid var(--ocean); border-radius:0 10px 10px 0; padding:14px 18px;">
+    <div style="font-size:13px; font-weight:500; color:var(--ocean); margin-bottom:6px;">💡 결론 — 패키지가 압도적으로 이득</div>
+    <div style="font-size:12px; color:var(--ink-mid); line-height:1.8;">
+      별도 항공권으로 패키지보다 저렴하려면 호텔을 <strong>382,200원 이내</strong>로 잡아야 하는데,<br>
+      멜리아 빈펄 엠파이어 3박을 그 금액에 예약하는 건 불가능해요.<br>
+      <strong>항공권 취소 후 패키지로 전환하는 게 최소 20~30만원 이상 절약</strong>됩니다.<br>
+      <span style="color:var(--coral);">⚠️ 현재 항공권 취소 수수료 먼저 확인 후 결정하세요.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<footer>
+  나트랑 6월 2일 출발 · 3박 5일 · 프리즘 여행사 가격 기준 · 실제 예약 전 여행사 재확인 요망
+</footer>
+
+<script>
+  function setView(view) {
+    // Hide all
+    document.getElementById('view-doyun').classList.remove('visible');
+    document.getElementById('view-yedam').classList.remove('visible');
+    document.getElementById('view-combined').classList.remove('visible');
+
+    // Family card highlight
+    document.getElementById('fc-doyun').classList.remove('active');
+    document.getElementById('fc-yedam').classList.remove('active');
+
+    // Toggle buttons
+    document.querySelectorAll('.toggle-btn').forEach((b, i) => {
+      b.classList.remove('active');
+      if ((i===0 && view==='doyun') || (i===1 && view==='yedam') || (i===2 && view==='combined')) {
+        b.classList.add('active');
+      }
+    });
+
+    if (view === 'doyun') {
+      document.getElementById('view-doyun').classList.add('visible');
+      document.getElementById('fc-doyun').classList.add('active');
+    } else if (view === 'yedam') {
+      document.getElementById('view-yedam').classList.add('visible');
+      document.getElementById('fc-yedam').classList.add('active');
+    } else {
+      document.getElementById('view-combined').classList.add('visible');
+      document.getElementById('fc-doyun').classList.add('active');
+      document.getElementById('fc-yedam').classList.add('active');
+    }
+  }
+
+  function switchTab(family, airline) {
+    const tabs = document.querySelectorAll('#view-' + family + ' .tab-btn');
+    tabs.forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+
+    const eastar = document.querySelector('.' + family + '-eastar');
+    const airseoul = document.querySelector('.' + family + '-airseoul');
+    const airbusan = document.querySelector('.' + family + '-airbusan');
+
+    if (airline === 'all') {
+      if (eastar) eastar.style.display = 'block';
+      if (airseoul) airseoul.style.display = 'block';
+      if (airbusan) airbusan.style.display = 'block';
+    } else if (airline === 'eastar') {
+      if (eastar) eastar.style.display = 'block'; else null;
+      if (airseoul) airseoul.style.display = 'none';
+      if (airbusan) airbusan.style.display = 'none';
+    } else if (airline === 'airseoul') {
+      if (eastar) eastar.style.display = 'none';
+      if (airseoul) airseoul.style.display = 'block';
+      if (airbusan) airbusan.style.display = 'none';
+    } else if (airline === 'airbusan') {
+      if (eastar) eastar.style.display = 'none';
+      if (airseoul) airseoul.style.display = 'none';
+      if (airbusan) airbusan.style.display = 'block';
+    }
+  }
+</script>
+</body>
+</html>
