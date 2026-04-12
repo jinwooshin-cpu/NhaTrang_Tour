@@ -8,349 +8,235 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
-    --sand:#F5EFE6;--sand-dark:#E8DDCC;--ocean:#1A5F7A;--ocean-light:#2E86AB;
-    --teal:#0B7A75;--teal-light:#12B5AD;--coral:#E07A5F;
-    --ink:#1C1C1E;--ink-mid:#3C3C3E;--ink-light:#6C6C70;
-    --white:#FEFCF9;--gold:#C9A84C;--green:#3B6D11;
+    --sand: #F5EFE6;
+    --sand-dark: #E8DDCC;
+    --ocean: #1A5F7A;
+    --ocean-light: #2E86AB;
+    --teal: #0B7A75;
+    --teal-light: #12B5AD;
+    --coral: #E07A5F;
+    --ink: #1C1C1E;
+    --ink-mid: #3C3C3E;
+    --ink-light: #6C6C70;
+    --white: #FEFCF9;
+    --gold: #C9A84C;
   }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'DM Sans',sans-serif;background:var(--sand);color:var(--ink);}
-  .hero{background:var(--ocean);color:var(--white);padding:3.5rem 2rem 4rem;text-align:center;position:relative;overflow:hidden;}
-  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,rgba(18,181,173,.25) 0%,transparent 55%),radial-gradient(ellipse at 80% 20%,rgba(46,134,171,.3) 0%,transparent 55%);}
-  .hero-wave{position:absolute;bottom:-2px;left:0;right:0;height:40px;}
-  .hero-tag{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:5px 14px;color:rgba(255,255,255,.8);margin-bottom:1.2rem;position:relative;}
-  .hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:600;line-height:1.3;position:relative;margin-bottom:.5rem;}
-  .hero h1 span{color:var(--teal-light);}
-  .hero-sub{font-size:13px;color:rgba(255,255,255,.6);position:relative;margin-bottom:1.5rem;}
-  .hero-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;}
-  .pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,.85);}
-  .nav-tabs{display:flex;justify-content:center;flex-wrap:wrap;padding:1.5rem 1rem 0;background:var(--sand);border-bottom:1.5px solid var(--sand-dark);}
-  .nav-btn{padding:10px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;background:none;border:none;color:var(--ink-light);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1.5px;transition:all .18s;}
-  .nav-btn.active{color:var(--ocean);border-bottom-color:var(--ocean);}
-  .main{max-width:860px;margin:0 auto;padding:2rem 1.5rem 4rem;}
-  .section{display:none;} .section.visible{display:block;}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(--ink); }
 
-  /* schedule */
-  .day-block{margin-bottom:2rem;}
-  .day-header{display:flex;align-items:center;gap:12px;margin-bottom:1rem;}
-  .day-badge{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;white-space:nowrap;}
-  .day-badge.arrive{background:rgba(26,95,122,.1);color:var(--ocean);}
-  .day-badge.tour{background:rgba(201,168,76,.15);color:#8B6914;}
-  .day-badge.city{background:rgba(11,122,117,.1);color:var(--teal);}
-  .day-badge.resort{background:rgba(224,122,95,.12);color:var(--coral);}
-  .day-badge.depart{background:rgba(108,108,112,.1);color:var(--ink-light);}
-  .day-title{font-family:'Noto Serif KR',serif;font-size:15px;font-weight:600;color:var(--ink);}
-  .day-date{font-size:12px;color:var(--ink-light);margin-left:auto;}
-  .timeline{position:relative;padding-left:20px;}
-  .timeline::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:1px;background:var(--sand-dark);}
-  .tl-item{position:relative;margin-bottom:14px;background:var(--white);border-radius:10px;padding:12px 14px;border:.5px solid var(--sand-dark);}
-  .tl-item::before{content:'';position:absolute;left:-17px;top:16px;width:8px;height:8px;border-radius:50%;background:var(--sand-dark);border:2px solid var(--sand);}
-  .tl-item.highlight::before{background:var(--ocean);}
-  .tl-item.food::before{background:var(--coral);}
-  .tl-item.activity::before{background:var(--gold);}
-  .tl-item.hotel::before{background:var(--teal);}
-  .tl-time{font-size:10px;color:var(--ink-light);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;}
-  .tl-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px;}
-  .tl-sub{font-size:12px;color:var(--ink-light);line-height:1.5;}
-  .menu-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
-  .mtag{font-size:10px;padding:2px 8px;border-radius:4px;background:rgba(224,122,95,.1);color:var(--coral);}
-  .hotel-strip{background:rgba(26,95,122,.06);border-radius:8px;padding:8px 12px;margin-top:8px;display:flex;align-items:center;gap:8px;border-left:3px solid var(--ocean);}
-  .hotel-strip-name{font-size:12px;font-weight:500;color:var(--ocean);}
-  .hotel-strip-nights{font-size:11px;color:var(--ink-light);margin-left:auto;}
-  .day-divider{border:none;border-top:1.5px dashed var(--sand-dark);margin:1.5rem 0;}
-
-  /* shared cards */
-  .cost-card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);margin-bottom:1rem;}
-  .cost-card-header{padding:14px 18px;border-bottom:1px solid var(--sand);display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.02);}
-  .cost-card-label{font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-light);}
-  .cost-rows{padding:0 18px;}
-  .cost-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--sand);font-size:13px;}
-  .cost-row:last-child{border-bottom:none;}
-  .cost-row-label{color:var(--ink-light);}
-  .cost-row-sub{font-size:11px;color:var(--ink-light);display:block;margin-top:1px;}
-  .cost-row-val{font-weight:500;color:var(--ink);}
-  .cost-total{background:var(--ocean);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;}
-  .cost-total-label{font-size:13px;color:rgba(255,255,255,.75);}
-  .cost-total-val{font-size:20px;font-weight:500;color:white;}
-  .note-bar{background:rgba(26,95,122,.07);border-left:3px solid var(--ocean-light);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:var(--ink-mid);line-height:1.7;margin-top:1rem;}
-
-  /* toggle group */
-  .family-toggle,.ins-toggle{display:flex;margin-bottom:1.5rem;justify-content:center;}
-  .ftoggle-btn,.itoggle-btn{padding:9px 22px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;border:1.5px solid var(--ocean);cursor:pointer;transition:all .2s;background:transparent;color:var(--ocean);}
-  .ftoggle-btn:first-child,.itoggle-btn:first-child{border-radius:8px 0 0 8px;border-right:none;}
-  .ftoggle-btn:last-child,.itoggle-btn:last-child{border-radius:0 8px 8px 0;}
-  .ftoggle-btn.active,.itoggle-btn.active{background:var(--ocean);color:white;}
-
-  /* combined */
-  .combined-box{background:var(--white);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);overflow:hidden;}
-  .combined-row{display:flex;border-bottom:1px solid var(--sand);}
-  .combined-cell{flex:1;padding:14px 18px;border-right:1px solid var(--sand);}
-  .combined-cell:last-child{border-right:none;}
-  .cc-label{font-size:11px;color:var(--ink-light);margin-bottom:4px;}
-  .cc-val{font-size:15px;font-weight:500;}
-  .cc-doyun{color:var(--ocean);} .cc-yedam{color:var(--teal);}
-  .combined-total-row{background:rgba(0,0,0,.03);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;border-top:1.5px solid var(--sand-dark);}
-
-  /* flight */
-  .flight-card{background:var(--ocean);border-radius:12px;padding:1.4rem;margin-bottom:1rem;color:white;}
-  .flight-label{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:12px;}
-  .flight-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-  .flight-time{font-size:20px;font-weight:500;min-width:55px;}
-  .flight-line{flex:1;height:1px;background:rgba(255,255,255,.25);position:relative;}
-  .flight-line-label{position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(255,255,255,.5);white-space:nowrap;}
-  .flight-dot{width:7px;height:7px;border-radius:50%;background:white;flex-shrink:0;}
-  .flight-dot-muted{background:rgba(255,255,255,.4);}
-  .flight-cities{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.55);margin-bottom:4px;}
-  .flight-date{font-size:11px;color:rgba(255,255,255,.45);}
-  .flight-divider{border:none;border-top:1px solid rgba(255,255,255,.1);margin:12px 0;}
-
-  /* ====== INSURANCE ====== */
-  .ins-intro{background:var(--white);border-radius:12px;padding:16px 18px;margin-bottom:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);border-left:4px solid var(--ocean);}
-  .ins-intro-title{font-size:13px;font-weight:500;color:var(--ocean);margin-bottom:6px;}
-  .ins-intro-desc{font-size:12px;color:var(--ink-mid);line-height:1.75;}
-
-  /* compare table */
-  .ins-header{display:grid;grid-template-columns:38% 31% 31%;background:var(--white);border-radius:12px 12px 0 0;border:.5px solid var(--sand-dark);border-bottom:none;overflow:hidden;}
-  .ins-hcell{padding:13px 10px;text-align:center;font-size:12px;font-weight:500;}
-  .ins-hcell.blank{background:rgba(0,0,0,.02);border-right:.5px solid var(--sand-dark);}
-  .ins-hcell.col-a{background:rgba(26,95,122,.08);color:var(--ocean);border-right:.5px solid var(--sand-dark);}
-  .ins-hcell.col-b{background:rgba(59,109,17,.08);color:var(--green);}
-  .ins-table{background:var(--white);border-radius:0 0 12px 12px;border:.5px solid var(--sand-dark);overflow:hidden;margin-bottom:1rem;box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);}
-  .ins-group{background:rgba(0,0,0,.025);padding:7px 10px;font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-light);border-top:.5px solid var(--sand-dark);}
-  .ins-group:first-child{border-top:none;}
-  .ins-row{display:grid;grid-template-columns:38% 31% 31%;border-bottom:.5px solid var(--sand);}
-  .ins-row:last-child{border-bottom:none;}
-  .ins-cell{padding:10px 10px;font-size:12px;line-height:1.45;border-right:.5px solid var(--sand);}
-  .ins-cell:last-child{border-right:none;}
-  .ins-cell.lbl{color:var(--ink-light);}
-  .ins-cell.va{color:var(--ocean);font-weight:500;}
-  .ins-cell.vb{color:var(--green);font-weight:500;}
-  .ins-cell.na{color:var(--ink-light);font-size:11px;}
-  .badge-up{display:inline-block;font-size:9px;padding:1px 5px;border-radius:3px;margin-left:3px;background:rgba(201,168,76,.18);color:#8B6914;font-weight:500;vertical-align:middle;}
-
-  /* price view */
-  .ins-price-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1rem;}
-  .ins-price-card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);}
-  .ins-price-top{padding:14px 16px;}
-  .ins-price-name{font-size:13px;font-weight:500;margin-bottom:2px;}
-  .ins-price-sub{font-size:11px;color:var(--ink-light);}
-  .ins-price-bottom{padding:12px 16px;display:flex;justify-content:space-between;align-items:baseline;}
-  .ins-price-bottom.a{background:rgba(26,95,122,.07);}
-  .ins-price-bottom.b{background:rgba(59,109,17,.07);}
-  .ins-price-label{font-size:11px;color:var(--ink-light);}
-  .ins-price-val{font-size:20px;font-weight:500;}
-  .ins-price-val.a{color:var(--ocean);} .ins-price-val.b{color:var(--green);}
-
-  /* calc view */
-  .ins-calc-box{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);margin-bottom:1rem;}
-  .ins-calc-header{padding:13px 18px;background:rgba(0,0,0,.02);border-bottom:.5px solid var(--sand-dark);font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-light);}
-  .ins-calc-row{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;border-bottom:.5px solid var(--sand);font-size:13px;}
-  .ins-calc-row:last-child{border-bottom:none;}
-  .ins-calc-lbl{color:var(--ink-light);line-height:1.5;}
-  .ins-calc-val{font-weight:500;}
-  .ins-total-bar{background:var(--ocean);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;}
-  .ins-total-bar.green{background:var(--teal);}
-  .ins-recommend{background:var(--ocean);border-radius:12px;padding:18px;color:white;margin-top:1rem;}
-  .ins-recommend-tag{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px;}
-  .ins-recommend-body{font-size:13px;color:rgba(255,255,255,.9);line-height:1.8;}
-  .ins-recommend-body strong{color:white;}
-
-  footer{text-align:center;padding:2rem;font-size:11px;color:var(--ink-light);border-top:1px solid var(--sand-dark);}
-  @media(max-width:600px){
-    .hero{padding:2.5rem 1.2rem 3rem;}
-    .main{padding:1.5rem 1rem 3rem;}
-    .combined-row{flex-direction:column;}
-    .combined-cell{border-right:none;border-bottom:1px solid var(--sand);}
-    .ins-price-grid{grid-template-columns:1fr;}
-    .nav-btn{padding:10px 11px;font-size:12px;}
+  /* Hero */
+  .hero {
+    background: var(--ocean); color: var(--white);
+    padding: 3.5rem 2rem 4rem; text-align: center; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 80%, rgba(18,181,173,0.25) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 20%, rgba(46,134,171,0.3) 0%, transparent 55%);
+  }
+  .hero-wave { position: absolute; bottom: -2px; left: 0; right: 0; height: 40px; }
+  .hero-tag {
+    display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; border: 1px solid rgba(255,255,255,0.35); border-radius: 20px;
+    padding: 5px 14px; color: rgba(255,255,255,0.8); margin-bottom: 1.2rem; position: relative;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif KR', serif; font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 600; line-height: 1.3; position: relative; margin-bottom: 0.5rem;
+  }
+  .hero h1 span { color: var(--teal-light); }
+  .hero-sub { font-size: 13px; color: rgba(255,255,255,0.6); position: relative; margin-bottom: 1.5rem; }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; position: relative; }
+  .pill {
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px; padding: 5px 14px; font-size: 12px; color: rgba(255,255,255,0.85);
   }
 
-  /* ===== INSURANCE ===== */
-  .ins-intro {
-    background: var(--white); border-radius: 12px; padding: 16px 18px;
-    margin-bottom: 1.25rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
-    border-left: 4px solid var(--ocean);
+  /* Nav tabs */
+  .nav-tabs {
+    display: flex; justify-content: center; gap: 0;
+    padding: 1.5rem 1rem 0; background: var(--sand);
+    border-bottom: 1.5px solid var(--sand-dark);
   }
-  .ins-intro-title { font-size: 13px; font-weight: 500; color: var(--ocean); margin-bottom: 6px; }
-  .ins-intro-desc { font-size: 12px; color: var(--ink-mid); line-height: 1.75; }
-  .ins-toggle { display: flex; gap: 0; margin-bottom: 1.25rem; justify-content: center; }
-  .ins-toggle-btn {
-    padding: 9px 28px; font-family: 'DM Sans', sans-serif;
-    font-size: 13px; font-weight: 500; border: 1.5px solid var(--ocean);
-    cursor: pointer; transition: all 0.2s; background: transparent; color: var(--ocean);
+  .nav-btn {
+    padding: 10px 20px; font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; background: none;
+    border: none; color: var(--ink-light); cursor: pointer;
+    border-bottom: 2px solid transparent; margin-bottom: -1.5px;
+    transition: all 0.18s;
   }
-  .ins-toggle-btn:first-child { border-radius: 8px 0 0 8px; border-right: none; }
-  .ins-toggle-btn:last-child { border-radius: 0 8px 8px 0; }
-  .ins-toggle-btn.active { background: var(--ocean); color: white; }
-  .ins-compare-header {
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
-    background: var(--white); border-radius: 12px 12px 0 0;
-    overflow: hidden; border: 0.5px solid var(--sand-dark); border-bottom: none;
+  .nav-btn.active { color: var(--ocean); border-bottom-color: var(--ocean); }
+
+  /* Main */
+  .main { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { display: none; }
+  .section.visible { display: block; }
+
+  /* ===== SCHEDULE ===== */
+  .day-block { margin-bottom: 2rem; }
+  .day-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;
   }
-  .ins-col-label { padding: 14px 12px; text-align: center; font-size: 12px; font-weight: 500; }
-  .ins-col-label.blank { background: rgba(0,0,0,0.02); border-right: 0.5px solid var(--sand-dark); }
-  .ins-col-label.col-a { background: rgba(26,95,122,0.08); color: var(--ocean); border-right: 0.5px solid var(--sand-dark); }
-  .ins-col-label.col-b { background: rgba(59,109,17,0.08); color: #3B6D11; }
-  .ins-compare-table {
-    background: var(--white); border-radius: 0 0 12px 12px;
-    border: 0.5px solid var(--sand-dark); overflow: hidden;
-    margin-bottom: 1rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  .day-badge {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 4px 12px; border-radius: 20px;
+    white-space: nowrap;
   }
-  .ins-section-row {
-    background: rgba(0,0,0,0.03); padding: 7px 12px;
-    font-size: 10px; font-weight: 500; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--ink-light);
-    border-top: 0.5px solid var(--sand-dark); border-bottom: 0.5px solid var(--sand-dark);
+  .day-badge.arrive { background: rgba(26,95,122,0.1); color: var(--ocean); }
+  .day-badge.tour { background: rgba(201,168,76,0.15); color: #8B6914; }
+  .day-badge.city { background: rgba(11,122,117,0.1); color: var(--teal); }
+  .day-badge.resort { background: rgba(224,122,95,0.12); color: var(--coral); }
+  .day-badge.depart { background: rgba(108,108,112,0.1); color: var(--ink-light); }
+  .day-title { font-family: 'Noto Serif KR', serif; font-size: 15px; font-weight: 600; color: var(--ink); }
+  .day-date { font-size: 12px; color: var(--ink-light); margin-left: auto; }
+
+  .timeline { position: relative; padding-left: 20px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 6px; top: 6px; bottom: 6px;
+    width: 1px; background: var(--sand-dark);
   }
-  .ins-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 0.5px solid var(--sand); }
-  .ins-row:last-child { border-bottom: none; }
-  .ins-cell { padding: 11px 12px; font-size: 12px; line-height: 1.45; border-right: 0.5px solid var(--sand); }
-  .ins-cell:last-child { border-right: none; }
-  .ins-cell.item-label { color: var(--ink-light); }
-  .ins-cell.col-a-val { color: var(--ocean); font-weight: 500; }
-  .ins-cell.col-b-val { color: #3B6D11; font-weight: 500; }
-  .ins-cell.na { color: var(--ink-light); font-size: 11px; }
-  .better-badge {
-    display: inline-block; font-size: 9px; padding: 1px 5px;
-    border-radius: 3px; margin-left: 4px; vertical-align: middle;
-    background: rgba(201,168,76,0.18); color: #8B6914; font-weight: 500;
+  .tl-item {
+    position: relative; margin-bottom: 14px;
+    background: var(--white); border-radius: 10px;
+    padding: 12px 14px; border: 0.5px solid var(--sand-dark);
   }
-  .ins-price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.25rem; }
-  .ins-price-card {
-    background: var(--white); border-radius: 12px; overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  .tl-item::before {
+    content: ''; position: absolute; left: -17px; top: 16px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--sand-dark); border: 2px solid var(--sand);
   }
-  .ins-price-card-top { padding: 14px 16px; }
-  .ins-plan-name { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
-  .ins-plan-sub { font-size: 11px; color: var(--ink-light); }
-  .ins-price-bottom { padding: 12px 16px; display: flex; justify-content: space-between; align-items: baseline; }
-  .ins-price-bottom.a { background: rgba(26,95,122,0.07); }
-  .ins-price-bottom.b { background: rgba(59,109,17,0.07); }
-  .ins-price-val { font-size: 20px; font-weight: 500; }
-  .ins-price-val.a { color: var(--ocean); }
-  .ins-price-val.b { color: #3B6D11; }
-  .ins-price-unit { font-size: 11px; color: var(--ink-light); }
-  .ins-total-box {
-    background: var(--white); border-radius: 12px; overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
-    margin-bottom: 1rem;
-  }
-  .ins-total-header {
-    padding: 12px 18px; background: rgba(0,0,0,0.02);
-    border-bottom: 0.5px solid var(--sand-dark);
-    font-size: 11px; font-weight: 500; letter-spacing: 0.07em;
-    text-transform: uppercase; color: var(--ink-light);
-  }
-  .ins-total-row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 18px; border-bottom: 0.5px solid var(--sand); font-size: 13px;
-  }
-  .ins-total-row:last-child { border-bottom: none; }
-  .ins-total-row-label { color: var(--ink-light); line-height: 1.5; }
-  .ins-total-row-val { font-weight: 500; white-space: nowrap; }
-  .ins-recommend {
-    background: var(--ocean); border-radius: 12px; padding: 18px;
-    color: white; margin-bottom: 1rem;
-  }
-  .ins-recommend-title { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
-  .ins-recommend-body { font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.75; }
-  .ins-recommend-body strong { color: white; }
-  @media (max-width: 600px) {
-    .ins-price-grid { grid-template-columns: 1fr; }
-    .ins-compare-header { grid-template-columns: 38% 31% 31%; }
-    .ins-row { grid-template-columns: 38% 31% 31%; }
+  .tl-item.highlight::before { background: var(--ocean); }
+  .tl-item.food::before { background: var(--coral); }
+  .tl-item.activity::before { background: var(--gold); }
+  .tl-item.hotel::before { background: var(--teal); }
+
+  .tl-time { font-size: 10px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+  .tl-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .tl-sub { font-size: 12px; color: var(--ink-light); line-height: 1.5; }
+  .tl-emoji { font-size: 14px; margin-right: 4px; }
+  .menu-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .mtag {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(224,122,95,0.1); color: var(--coral);
   }
 
-
-  /* ===== FASTTRACK ===== */
-  .ft-intro {
-    background: var(--ocean); border-radius: 12px; padding: 18px;
-    color: white; margin-bottom: 1.25rem;
-    display: flex; align-items: center; gap: 14px;
+  .hotel-strip {
+    background: rgba(26,95,122,0.06); border-radius: 8px;
+    padding: 8px 12px; margin-top: 8px;
+    display: flex; align-items: center; gap: 8px;
+    border-left: 3px solid var(--ocean);
   }
-  .ft-intro-icon { font-size: 28px; flex-shrink: 0; }
-  .ft-intro-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
-  .ft-intro-sub { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+  .hotel-strip-name { font-size: 12px; font-weight: 500; color: var(--ocean); }
+  .hotel-strip-nights { font-size: 11px; color: var(--ink-light); margin-left: auto; }
 
-  .ft-direction-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.25rem; }
-  .ft-dir-card {
-    background: var(--white); border-radius: 12px; overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  .day-divider {
+    border: none; border-top: 1.5px dashed var(--sand-dark); margin: 1.5rem 0;
   }
-  .ft-dir-header {
-    padding: 11px 14px; font-size: 12px; font-weight: 500;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .ft-dir-header.inbound { background: rgba(26,95,122,0.1); color: var(--ocean); }
-  .ft-dir-header.outbound { background: rgba(11,122,117,0.1); color: var(--teal); }
-  .ft-dir-body { padding: 14px; }
-  .ft-price-main { font-size: 22px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
-  .ft-price-label { font-size: 10px; color: var(--ink-light); margin-bottom: 10px; }
-  .ft-price-free { font-size: 16px; font-weight: 500; color: var(--teal); }
-  .ft-price-free-label { font-size: 10px; color: var(--ink-light); }
 
-  .ft-family-toggle { display: flex; gap: 0; margin-bottom: 1.25rem; justify-content: center; }
-  .ft-toggle-btn {
+  /* ===== COSTS ===== */
+  .family-toggle {
+    display: flex; gap: 0; margin-bottom: 1.5rem; justify-content: center;
+  }
+  .ftoggle-btn {
     padding: 9px 24px; font-family: 'DM Sans', sans-serif;
     font-size: 13px; font-weight: 500; border: 1.5px solid var(--ocean);
     cursor: pointer; transition: all 0.2s; background: transparent; color: var(--ocean);
   }
-  .ft-toggle-btn:first-child { border-radius: 8px 0 0 8px; border-right: none; }
-  .ft-toggle-btn:last-child { border-radius: 0 8px 8px 0; }
-  .ft-toggle-btn.active { background: var(--ocean); color: white; }
+  .ftoggle-btn:first-child { border-radius: 8px 0 0 8px; border-right: none; }
+  .ftoggle-btn:last-child { border-radius: 0 8px 8px 0; }
+  .ftoggle-btn.active { background: var(--ocean); color: white; }
 
-  .ft-calc-box {
+  .cost-card {
     background: var(--white); border-radius: 12px; overflow: hidden;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
     margin-bottom: 1rem;
   }
-  .ft-calc-header {
-    padding: 12px 18px; background: rgba(0,0,0,0.02);
-    border-bottom: 0.5px solid var(--sand-dark);
-    font-size: 11px; font-weight: 500; letter-spacing: 0.07em;
-    text-transform: uppercase; color: var(--ink-light);
+  .cost-card-header {
+    padding: 14px 18px; border-bottom: 1px solid var(--sand);
     display: flex; justify-content: space-between; align-items: center;
+    background: rgba(0,0,0,0.02);
   }
-  .ft-calc-row {
+  .cost-card-label { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-light); }
+  .cost-rows { padding: 0 18px; }
+  .cost-row {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 18px; border-bottom: 0.5px solid var(--sand); font-size: 13px;
+    padding: 11px 0; border-bottom: 1px solid var(--sand);
+    font-size: 13px;
   }
-  .ft-calc-row:last-child { border-bottom: none; }
-  .ft-calc-label { color: var(--ink-light); line-height: 1.55; }
-  .ft-calc-val { font-weight: 500; color: var(--ink); white-space: nowrap; }
-  .ft-calc-total {
+  .cost-row:last-child { border-bottom: none; }
+  .cost-row-label { color: var(--ink-light); }
+  .cost-row-sub { font-size: 11px; color: var(--ink-light); display: block; margin-top: 1px; }
+  .cost-row-val { font-weight: 500; color: var(--ink); }
+  .cost-total {
     background: var(--ocean); padding: 14px 18px;
     display: flex; justify-content: space-between; align-items: center;
   }
-  .ft-calc-total.teal { background: var(--teal); }
-  .ft-calc-total-label { font-size: 13px; color: rgba(255,255,255,0.75); }
-  .ft-calc-total-val { font-size: 20px; font-weight: 500; color: white; }
+  .cost-total-label { font-size: 13px; color: rgba(255,255,255,0.75); }
+  .cost-total-val { font-size: 20px; font-weight: 500; color: white; }
 
-  .ft-combined-box {
-    background: var(--white); border-radius: 12px; overflow: hidden;
+  .combined-box {
+    background: var(--white); border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    overflow: hidden;
   }
-  .ft-combined-inner { display: flex; border-bottom: 0.5px solid var(--sand); }
-  .ft-combined-cell { flex: 1; padding: 14px 18px; border-right: 0.5px solid var(--sand); }
-  .ft-combined-cell:last-child { border-right: none; }
-  .ft-combined-label { font-size: 11px; color: var(--ink-light); margin-bottom: 4px; }
-  .ft-combined-val { font-size: 16px; font-weight: 500; }
-  .ft-grand-total {
-    padding: 14px 18px; background: rgba(0,0,0,0.03);
+  .combined-row {
+    display: flex; border-bottom: 1px solid var(--sand);
+  }
+  .combined-row:last-child { border-bottom: none; }
+  .combined-cell {
+    flex: 1; padding: 14px 18px; border-right: 1px solid var(--sand);
+  }
+  .combined-cell:last-child { border-right: none; }
+  .cc-label { font-size: 11px; color: var(--ink-light); margin-bottom: 4px; }
+  .cc-val { font-size: 15px; font-weight: 500; }
+  .cc-doyun { color: var(--ocean); }
+  .cc-yedam { color: var(--teal); }
+  .combined-total-row {
+    background: rgba(0,0,0,0.03); padding: 14px 18px;
     display: flex; justify-content: space-between; align-items: center;
     border-top: 1.5px solid var(--sand-dark);
   }
 
-  @media (max-width: 600px) {
-    .ft-direction-grid { grid-template-columns: 1fr; }
+  /* ===== FLIGHT ===== */
+  .flight-card {
+    background: var(--ocean); border-radius: 12px; padding: 1.4rem;
+    margin-bottom: 1rem; color: white;
+  }
+  .flight-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 12px; }
+  .flight-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .flight-time { font-size: 20px; font-weight: 500; min-width: 55px; }
+  .flight-line { flex: 1; height: 1px; background: rgba(255,255,255,0.25); position: relative; }
+  .flight-line-label { position: absolute; top: -9px; left: 50%; transform: translateX(-50%); font-size: 10px; color: rgba(255,255,255,0.5); white-space: nowrap; }
+  .flight-dot { width: 7px; height: 7px; border-radius: 50%; background: white; flex-shrink: 0; }
+  .flight-dot-muted { background: rgba(255,255,255,0.4); }
+  .flight-cities { display: flex; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.55); margin-bottom: 4px; }
+  .flight-date { font-size: 11px; color: rgba(255,255,255,0.45); }
+  .flight-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 12px 0; }
+
+  /* Note bar */
+  .note-bar {
+    background: rgba(26,95,122,0.07); border-left: 3px solid var(--ocean-light);
+    border-radius: 0 8px 8px 0; padding: 10px 14px;
+    font-size: 12px; color: var(--ink-mid); line-height: 1.7; margin-top: 1rem;
   }
 
+  footer {
+    text-align: center; padding: 2rem;
+    font-size: 11px; color: var(--ink-light);
+    border-top: 1px solid var(--sand-dark);
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 2.5rem 1.2rem 3rem; }
+    .main { padding: 1.5rem 1rem 3rem; }
+    .combined-row { flex-direction: column; }
+    .combined-cell { border-right: none; border-bottom: 1px solid var(--sand); }
+  }
 </style>
 </head>
 <body>
 
+<!-- Hero -->
 <div class="hero">
   <div class="hero-tag">🌊 나트랑 6월 여행</div>
   <h1>두 가족의 <span>나트랑</span><br>완벽 플랜</h1>
@@ -365,803 +251,528 @@
   </svg>
 </div>
 
+<!-- Nav -->
 <div class="nav-tabs">
   <button class="nav-btn active" onclick="showSection('schedule')">📅 일정</button>
   <button class="nav-btn" onclick="showSection('hotel')">🏨 숙박</button>
   <button class="nav-btn" onclick="showSection('flight')">✈️ 항공</button>
   <button class="nav-btn" onclick="showSection('cost')">💰 비용</button>
-  <button class="nav-btn" onclick="showSection('premium')">⭐ 프리미엄팩</button>
+  <button class="nav-btn" onclick="showSection('market')">🛒 담시장</button>
 </div>
 
 <div class="main">
 
-<!-- 일정 -->
+<!-- ===== 일정 ===== -->
 <div id="section-schedule" class="section visible">
+
+  <!-- DAY 1 -->
   <div class="day-block">
-    <div class="day-header"><span class="day-badge arrive">DAY 1</span><span class="day-title">도착 · 첫 저녁</span><span class="day-date">6월 2일 (화)</span></div>
+    <div class="day-header">
+      <span class="day-badge arrive">DAY 1</span>
+      <span class="day-title">도착 · 첫 저녁</span>
+      <span class="day-date">6월 2일 (화)</span>
+    </div>
     <div class="timeline">
-      <div class="tl-item highlight"><div class="tl-time">17:10 출발 → 20:40 도착</div><div class="tl-title">✈️ 인천 출발 · 에어부산 BX787</div><div class="tl-sub">나트랑 깜라인 국제공항 도착</div></div>
-      <div class="tl-item hotel"><div class="tl-time">저녁</div><div class="tl-title">🏨 하바나 호텔 체크인</div><div class="tl-sub">Premier Havana Nha Trang Hotel · 쩐푸 비치</div><div class="hotel-strip"><span class="hotel-strip-name">Havana Hotel</span><span class="hotel-strip-nights">6/2 ~ 6/4 · 2박</span></div></div>
-      <div class="tl-item food"><div class="tl-time">늦은 저녁</div><div class="tl-title">🍽️ An Ui Restaurant (안어이)</div><div class="tl-sub">가볍게 시작 — 배부르게 먹지 말기</div></div>
+      <div class="tl-item highlight">
+        <div class="tl-time">17:10 출발 → 20:40 도착</div>
+        <div class="tl-title">✈️ 인천 출발 · 에어부산 BX787</div>
+        <div class="tl-sub">나트랑 깜라인 국제공항 도착</div>
+      </div>
+      <div class="tl-item hotel">
+        <div class="tl-time">저녁</div>
+        <div class="tl-title">🏨 하바나 호텔 체크인</div>
+        <div class="tl-sub">Premier Havana Nha Trang Hotel · 쩐푸 비치</div>
+        <div class="hotel-strip">
+          <span class="hotel-strip-name">Havana Hotel</span>
+          <span class="hotel-strip-nights">6/2 ~ 6/4 · 2박</span>
+        </div>
+      </div>
+      <div class="tl-item food">
+        <div class="tl-time">늦은 저녁</div>
+        <div class="tl-title">🍽️ An Ui Restaurant (안어이)</div>
+        <div class="tl-sub">가볍게 시작 — 배부르게 먹지 말기</div>
+      </div>
     </div>
   </div>
+
   <hr class="day-divider">
+
+  <!-- DAY 2 -->
   <div class="day-block">
-    <div class="day-header"><span class="day-badge tour">DAY 2</span><span class="day-title">호핑투어 + 해산물 폭식 🔥</span><span class="day-date">6월 3일 (수)</span></div>
+    <div class="day-header">
+      <span class="day-badge tour">DAY 2</span>
+      <span class="day-title">호핑투어 + 해산물 폭식 🔥</span>
+      <span class="day-date">6월 3일 (수)</span>
+    </div>
     <div class="timeline">
-      <div class="tl-item activity"><div class="tl-time">오전 ~ 오후</div><div class="tl-title">🚤 호핑투어</div><div class="tl-sub">Hon Mun Island 근처</div><div style="background:rgba(26,95,122,.07);border-radius:6px;padding:8px 10px;margin-top:8px;font-size:11px;color:var(--ink-mid);line-height:1.7;">💡 <strong>호핑투어 추가 가능 날짜</strong><br>· 6/4 오전 — 시내관광 전 일찍 다녀오기 가능 (빡빡함)<br>· 6/5 오전 — 빈펄랜드 전 미니 스노클링 코스 가능<br>→ 6/3 한 번으로 충분하면 패스, 아이들 컨디션 보고 결정 추천</div></div>
-      <div class="tl-item activity"><div class="tl-time">투어 후</div><div class="tl-title">💆 마사지 1차</div><div class="tl-sub">피로 풀기</div></div>
-      <div class="tl-item food"><div class="tl-time">저녁</div><div class="tl-title">🦞 Bo Ke Dam (보케담)</div><div class="tl-sub">풀코스로 제대로 먹기 💣</div><div class="menu-tags"><span class="mtag">랍스터</span><span class="mtag">조개</span><span class="mtag">새우</span></div></div>
+      <div class="tl-item activity">
+        <div class="tl-time">오전 ~ 오후</div>
+        <div class="tl-title">🚤 호핑투어</div>
+        <div class="tl-sub">Hon Mun Island 근처</div>
+        <div style="background:rgba(26,95,122,0.07); border-radius:6px; padding:8px 10px; margin-top:8px; font-size:11px; color:var(--ink-mid); line-height:1.7;">
+          💡 <strong>호핑투어 추가 가능 날짜</strong><br>
+          · 6/4 오전 — 시내관광 전 일찍 다녀오기 가능 (빡빡함)<br>
+          · 6/5 오전 — 빈펄랜드 전 미니 스노클링 코스 가능<br>
+          → 6/3 한 번으로 충분하면 패스, 아이들 컨디션 보고 결정 추천
+        </div>
+      </div>
+      <div class="tl-item activity">
+        <div class="tl-time">투어 후</div>
+        <div class="tl-title">💆 마사지 1차</div>
+        <div class="tl-sub">피로 풀기</div>
+      </div>
+      <div class="tl-item food">
+        <div class="tl-time">저녁</div>
+        <div class="tl-title">🦞 Bo Ke Dam (보케담)</div>
+        <div class="tl-sub">풀코스로 제대로 먹기 💣</div>
+        <div class="menu-tags">
+          <span class="mtag">랍스터</span>
+          <span class="mtag">조개</span>
+          <span class="mtag">새우</span>
+        </div>
+      </div>
     </div>
   </div>
+
   <hr class="day-divider">
+
+  <!-- DAY 3 -->
   <div class="day-block">
-    <div class="day-header"><span class="day-badge city">DAY 3</span><span class="day-title">시내 관광 + 담시장</span><span class="day-date">6월 4일 (목)</span></div>
+    <div class="day-header">
+      <span class="day-badge city">DAY 3</span>
+      <span class="day-title">시내 관광 + 담시장</span>
+      <span class="day-date">6월 4일 (목)</span>
+    </div>
     <div class="timeline">
-      <div class="tl-item activity"><div class="tl-time">오전</div><div class="tl-title">🛕 Po Nagar Cham Towers</div><div class="tl-sub">나트랑 참탑 관광</div></div>
-      <div class="tl-item activity"><div class="tl-time">오전</div><div class="tl-title">⛩️ Long Son Pagoda</div><div class="tl-sub">롱썬 사원</div></div>
-      <div class="tl-item food"><div class="tl-time">점심</div><div class="tl-title">🥖 반미 샌드위치</div></div>
-      <div class="tl-item activity"><div class="tl-time">오후</div><div class="tl-title">🛒 담시장 방문</div><div class="tl-sub">현지 간식 구경</div></div>
-      <div class="tl-item activity"><div class="tl-time">오후</div><div class="tl-title">☕ 카페 + 휴식</div><div class="tl-sub">Jungle Coffee 또는 Alpaca</div></div>
-      <div class="tl-item food"><div class="tl-time">저녁</div><div class="tl-title">🦐 Thanh Suong Seafood (탄쓰엉)</div><div class="tl-sub">해산물 2차전 — 보케담보다 깔끔한 스타일</div></div>
-      <div class="tl-item hotel"><div class="tl-time">저녁</div><div class="tl-title">🏨 셀렉텀 노아 리조트 체크인</div><div class="tl-sub">Selectum Noa Resort Cam Ranh · 깜란 비치</div><div class="hotel-strip" style="border-left-color:var(--teal);"><span class="hotel-strip-name" style="color:var(--teal);">Selectum Noa Resort</span><span class="hotel-strip-nights">6/4 ~ 6/6 · 2박</span></div></div>
+      <div class="tl-item activity">
+        <div class="tl-time">오전</div>
+        <div class="tl-title">🛕 Po Nagar Cham Towers</div>
+        <div class="tl-sub">나트랑 참탑 관광</div>
+      </div>
+      <div class="tl-item activity">
+        <div class="tl-time">오전</div>
+        <div class="tl-title">⛩️ Long Son Pagoda</div>
+        <div class="tl-sub">롱썬 사원</div>
+      </div>
+      <div class="tl-item food">
+        <div class="tl-time">점심</div>
+        <div class="tl-title">🥖 반미 샌드위치</div>
+      </div>
+      <div class="tl-item activity">
+        <div class="tl-time">오후</div>
+        <div class="tl-title">🛒 담시장 방문</div>
+        <div class="tl-sub">현지 간식 구경</div>
+      </div>
+      <div class="tl-item activity">
+        <div class="tl-time">오후</div>
+        <div class="tl-title">☕ 카페 + 휴식</div>
+        <div class="tl-sub">Jungle Coffee 또는 Alpaca</div>
+      </div>
+      <div class="tl-item food">
+        <div class="tl-time">저녁</div>
+        <div class="tl-title">🦐 Thanh Suong Seafood (탄쓰엉)</div>
+        <div class="tl-sub">해산물 2차전 — 보케담보다 깔끔한 스타일</div>
+      </div>
+      <div class="tl-item hotel">
+        <div class="tl-time">저녁</div>
+        <div class="tl-title">🏨 셀렉텀 노아 리조트 체크인</div>
+        <div class="tl-sub">Selectum Noa Resort Cam Ranh · 깜란 비치</div>
+        <div class="hotel-strip" style="border-left-color: var(--teal);">
+          <span class="hotel-strip-name" style="color:var(--teal);">Selectum Noa Resort</span>
+          <span class="hotel-strip-nights">6/4 ~ 6/6 · 2박</span>
+        </div>
+      </div>
     </div>
   </div>
+
   <hr class="day-divider">
+
+  <!-- DAY 4 -->
   <div class="day-block">
-    <div class="day-header"><span class="day-badge resort">DAY 4</span><span class="day-title">빈펄랜드 🎢</span><span class="day-date">6월 5일 (금)</span></div>
-    <div style="background:rgba(201,168,76,.1);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:1rem;font-size:12px;color:var(--ink-mid);line-height:1.7;">🔄 <strong>일정 변경</strong> — 원래 미니비치 + 랑차이 계획에서 빈펄랜드로 교체했어요. 미니비치보다 아이들 만족도가 압도적으로 높고, 셀렉텀 노아에서 케이블카 탑승장까지 동선이 좋아요.</div>
+    <div class="day-header">
+      <span class="day-badge resort">DAY 4</span>
+      <span class="day-title">빈펄랜드 🎢</span>
+      <span class="day-date">6월 5일 (금)</span>
+    </div>
+    <div style="background:rgba(201,168,76,0.1); border-left:3px solid var(--gold); border-radius:0 8px 8px 0; padding:10px 14px; margin-bottom:1rem; font-size:12px; color:var(--ink-mid); line-height:1.7;">
+      🔄 <strong>일정 변경</strong> — 원래 미니비치 + 랑차이 계획에서 빈펄랜드로 교체했어요.<br>
+      미니비치보다 아이들 만족도가 압도적으로 높고, 셀렉텀 노아에서 케이블카 탑승장까지 동선이 좋아요. 워터파크+놀이공원+게임존 최소 5~6시간 필요해서 하루 통째로 쓰는 게 맞아요. 6/4에 넣으면 시내관광이랑 겹쳐서 애들이 너무 지쳐요.
+    </div>
     <div class="timeline">
-      <div class="tl-item activity"><div class="tl-time">오전 (일찍)</div><div class="tl-title">🚡 빈펄랜드 케이블카 탑승</div><div class="tl-sub">Hon Tre 섬 — 오픈 시간에 맞춰 일찍 출발 추천</div></div>
-      <div class="tl-item activity"><div class="tl-time">오전 ~ 오후</div><div class="tl-title">🎢 Vinpearl Land</div><div class="tl-sub">워터파크 · 놀이공원 · 게임존 — 풀코스</div><div class="menu-tags"><span class="mtag" style="background:rgba(201,168,76,.15);color:#8B6914;">워터파크</span><span class="mtag" style="background:rgba(201,168,76,.15);color:#8B6914;">놀이기구</span><span class="mtag" style="background:rgba(201,168,76,.15);color:#8B6914;">게임존</span></div></div>
-      <div class="tl-item food"><div class="tl-time">점심</div><div class="tl-title">🍽️ 빈펄 섬 내 식사</div></div>
-      <div class="tl-item activity"><div class="tl-time">오후 늦게</div><div class="tl-title">🏊 리조트 복귀 · 수영</div><div class="tl-sub">Selectum Noa Resort — 풀 & 비치</div></div>
-      <div class="tl-item food"><div class="tl-time">저녁</div><div class="tl-title">🌅 La Cala</div><div class="tl-sub">분위기 있는 저녁</div></div>
+      <div class="tl-item activity">
+        <div class="tl-time">오전 (일찍)</div>
+        <div class="tl-title">🚡 빈펄랜드 케이블카 탑승</div>
+        <div class="tl-sub">Hon Tre 섬 — 오픈 시간에 맞춰 일찍 출발 추천</div>
+      </div>
+      <div class="tl-item activity">
+        <div class="tl-time">오전 ~ 오후</div>
+        <div class="tl-title">🎢 Vinpearl Land</div>
+        <div class="tl-sub">워터파크 · 놀이공원 · 게임존 — 풀코스</div>
+        <div class="menu-tags">
+          <span class="mtag" style="background:rgba(201,168,76,0.15); color:#8B6914;">워터파크</span>
+          <span class="mtag" style="background:rgba(201,168,76,0.15); color:#8B6914;">놀이기구</span>
+          <span class="mtag" style="background:rgba(201,168,76,0.15); color:#8B6914;">게임존</span>
+        </div>
+      </div>
+      <div class="tl-item food">
+        <div class="tl-time">점심</div>
+        <div class="tl-title">🍽️ 빈펄 섬 내 식사</div>
+        <div class="tl-sub">섬 안에서 해결 또는 나오면서 랑차이 가능</div>
+      </div>
+      <div class="tl-item activity">
+        <div class="tl-time">오후 늦게</div>
+        <div class="tl-title">🏊 리조트 복귀 · 수영</div>
+        <div class="tl-sub">Selectum Noa Resort — 풀 & 비치</div>
+      </div>
+      <div class="tl-item food">
+        <div class="tl-time">저녁</div>
+        <div class="tl-title">🌅 La Cala</div>
+        <div class="tl-sub">분위기 있는 저녁</div>
+      </div>
     </div>
   </div>
+
   <hr class="day-divider">
+
+  <!-- DAY 5 -->
   <div class="day-block">
-    <div class="day-header"><span class="day-badge depart">DAY 5</span><span class="day-title">귀국 DAY ✈️</span><span class="day-date">6월 6일 (토)</span></div>
+    <div class="day-header">
+      <span class="day-badge depart">DAY 5</span>
+      <span class="day-title">귀국 DAY ✈️</span>
+      <span class="day-date">6월 6일 (토)</span>
+    </div>
     <div class="timeline">
-      <div class="tl-item activity"><div class="tl-time">오전</div><div class="tl-title">🌴 리조트 즐기기</div><div class="tl-sub">체크아웃 전 마지막 리조트 타임</div></div>
-      <div class="tl-item food"><div class="tl-time">점심</div><div class="tl-title">🍜 An Toi Restaurant (안토이)</div></div>
-      <div class="tl-item activity"><div class="tl-time">오후</div><div class="tl-title">💆 마사지 2차</div></div>
-      <div class="tl-item food"><div class="tl-time">저녁</div><div class="tl-title">🥩 Lac Canh Restaurant (락깐)</div></div>
-      <div class="tl-item highlight"><div class="tl-time">21:50</div><div class="tl-title">✈️ 나트랑 출발 · 에어부산 BX788</div><div class="tl-sub">6/7(일) 05:05 인천 도착</div></div>
+      <div class="tl-item activity">
+        <div class="tl-time">오전</div>
+        <div class="tl-title">🌴 리조트 즐기기</div>
+        <div class="tl-sub">체크아웃 전 마지막 리조트 타임</div>
+      </div>
+      <div class="tl-item food">
+        <div class="tl-time">점심</div>
+        <div class="tl-title">🍜 An Toi Restaurant (안토이)</div>
+      </div>
+      <div class="tl-item activity">
+        <div class="tl-time">오후</div>
+        <div class="tl-title">💆 마사지 2차</div>
+      </div>
+      <div class="tl-item food">
+        <div class="tl-time">저녁</div>
+        <div class="tl-title">🥩 Lac Canh Restaurant (락깐)</div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-time">21:50</div>
+        <div class="tl-title">✈️ 나트랑 출발 · 에어부산 BX788</div>
+        <div class="tl-sub">6/7(일) 05:05 인천 도착</div>
+      </div>
     </div>
   </div>
+
 </div>
 
-<!-- 숙박 -->
+<!-- ===== 숙박 ===== -->
 <div id="section-hotel" class="section">
+
   <div class="cost-card">
-    <div class="cost-card-header"><span class="cost-card-label">🏨 하바나 호텔</span><span style="font-size:12px;color:var(--ink-light);">6/2 ~ 6/4 · 2박</span></div>
-    <div class="cost-rows">
-      <div class="cost-row"><div><div style="font-size:13px;font-weight:500;color:var(--ink);">Premier Havana Nha Trang Hotel</div><span class="cost-row-sub">디럭스 오션뷰 · 조식포함 · 쩐푸 비치</span></div></div>
-      <div class="cost-row"><div class="cost-row-label">도윤이네 <span class="cost-row-sub">성인2+소아2 · 1박 199,346원</span></div><div class="cost-row-val">398,692원</div></div>
-      <div class="cost-row"><div class="cost-row-label">예담이네 <span class="cost-row-sub">성인2+소아1 · 1박 175,182원</span></div><div class="cost-row-val">350,364원</div></div>
-    </div>
-  </div>
-  <div class="cost-card">
-    <div class="cost-card-header"><span class="cost-card-label">🌴 셀렉텀 노아 리조트</span><span style="font-size:12px;color:var(--ink-light);">6/4 ~ 6/6 · 2박</span></div>
-    <div class="cost-rows">
-      <div class="cost-row"><div><div style="font-size:13px;font-weight:500;color:var(--ink);">Selectum Noa Resort Cam Ranh</div><span class="cost-row-sub">조식포함 · 깜란 비치 · 스노클링 · 얼리버드</span></div></div>
-      <div class="cost-row"><div class="cost-row-label">도윤이네 <span class="cost-row-sub">성인2+소아2 · 1박 459,326원</span></div><div class="cost-row-val">918,652원</div></div>
-      <div class="cost-row"><div class="cost-row-label">예담이네 <span class="cost-row-sub">성인2+소아1 · 1박 411,911원</span></div><div class="cost-row-val">823,822원</div></div>
-    </div>
-  </div>
-  <div class="note-bar">💡 두 가족 각자 예약 · 하바나는 시내 중심부(쩐푸 비치), 셀렉텀 노아는 깜란 비치(공항 근처) — 귀국 전날 이동 동선에 유리해요.</div>
-</div>
-
-<!-- 항공 -->
-<div id="section-flight" class="section">
-  <div class="flight-card">
-    <div class="flight-label">✈️ 에어부산 · 가는 편</div>
-    <div class="flight-row"><div class="flight-dot"></div><div class="flight-time">17:10</div><div class="flight-line"><div class="flight-line-label">BX787 · 직항 3시간 30분</div></div><div class="flight-time" style="text-align:right;">20:40</div><div class="flight-dot flight-dot-muted"></div></div>
-    <div class="flight-cities"><span>인천(ICN) T2 출발</span><span>나트랑 깜라인(CXR) 도착</span></div>
-    <div class="flight-date">2026년 6월 2일 (화)</div>
-    <div class="flight-divider"></div>
-    <div class="flight-label">✈️ 에어부산 · 오는 편</div>
-    <div class="flight-row"><div class="flight-dot"></div><div class="flight-time">21:50</div><div class="flight-line"><div class="flight-line-label">BX788 · 직항 3시간 15분</div></div><div class="flight-time" style="text-align:right;">05:05</div><div class="flight-dot flight-dot-muted"></div></div>
-    <div class="flight-cities"><span>나트랑 깜라인(CXR) 출발</span><span>인천(ICN) T2 도착</span></div>
-    <div class="flight-date">2026년 6월 6일 (토) 출발 → 6월 7일 (일) 도착</div>
-  </div>
-  <div class="cost-card">
-    <div class="cost-card-header"><span class="cost-card-label">항공권 금액</span></div>
-    <div class="cost-rows">
-      <div class="cost-row"><div class="cost-row-label">도윤이네 <span class="cost-row-sub">성인2+소아2 · 예약번호 KKUE2P</span></div><div class="cost-row-val">2,654,000원</div></div>
-      <div class="cost-row"><div class="cost-row-label">예담이네 <span class="cost-row-sub">성인2+소아1</span></div><div class="cost-row-val">2,039,800원</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- 비용 -->
-<div id="section-cost" class="section">
-  <div class="family-toggle">
-    <button class="ftoggle-btn active" onclick="showFamily('doyun')">도윤이네</button>
-    <button class="ftoggle-btn" onclick="showFamily('yedam')">예담이네</button>
-    <button class="ftoggle-btn" onclick="showFamily('combined')">합산</button>
-  </div>
-  <div id="cost-doyun">
-    <div class="cost-card">
-      <div class="cost-card-header"><span class="cost-card-label">도윤이네 · 성인2+소아2</span></div>
-      <div class="cost-rows">
-        <div class="cost-row"><div class="cost-row-label">✈️ 에어부산 (4인)</div><div class="cost-row-val">2,654,000원</div></div>
-        <div class="cost-row"><div class="cost-row-label">🏨 하바나 호텔 2박<span class="cost-row-sub">199,346원 × 2</span></div><div class="cost-row-val">398,692원</div></div>
-        <div class="cost-row"><div class="cost-row-label">🌴 셀렉텀 노아 2박<span class="cost-row-sub">459,326원 × 2</span></div><div class="cost-row-val">918,652원</div></div>
-      </div>
-      <div class="cost-total"><span class="cost-total-label">합계</span><span class="cost-total-val">3,971,344원</span></div>
-    </div>
-  </div>
-  <div id="cost-yedam" style="display:none;">
-    <div class="cost-card">
-      <div class="cost-card-header"><span class="cost-card-label">예담이네 · 성인2+소아1</span></div>
-      <div class="cost-rows">
-        <div class="cost-row"><div class="cost-row-label">✈️ 에어부산 (3인)</div><div class="cost-row-val">2,039,800원</div></div>
-        <div class="cost-row"><div class="cost-row-label">🏨 하바나 호텔 2박<span class="cost-row-sub">175,182원 × 2</span></div><div class="cost-row-val">350,364원</div></div>
-        <div class="cost-row"><div class="cost-row-label">🌴 셀렉텀 노아 2박<span class="cost-row-sub">411,911원 × 2</span></div><div class="cost-row-val">823,822원</div></div>
-      </div>
-      <div class="cost-total" style="background:var(--teal);"><span class="cost-total-label">합계</span><span class="cost-total-val">3,213,986원</span></div>
-    </div>
-  </div>
-  <div id="cost-combined" style="display:none;">
-    <div class="combined-box">
-      <div class="combined-row">
-        <div class="combined-cell"><div class="cc-label">도윤이네 (성인2+소아2)</div><div class="cc-val cc-doyun">3,971,344원</div></div>
-        <div class="combined-cell"><div class="cc-label">예담이네 (성인2+소아1)</div><div class="cc-val cc-yedam">3,213,986원</div></div>
-      </div>
-      <div class="combined-row">
-        <div class="combined-cell"><div class="cc-label">✈️ 항공</div><div class="cc-val" style="font-size:13px;color:var(--ink);">2,654,000 + 2,039,800</div></div>
-        <div class="combined-cell"><div class="cc-label">🏨 숙박 합계</div><div class="cc-val" style="font-size:13px;color:var(--ink);">1,317,344 + 1,174,186</div></div>
-      </div>
-      <div class="combined-total-row"><span style="font-size:14px;font-weight:500;color:var(--ink);">두 가족 총합</span><span style="font-size:22px;font-weight:500;color:var(--ocean);">7,185,330원</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- 보험 -->
-<div id="section-insurance" class="section">
-  <div class="ins-intro">
-    <div class="ins-intro-title">🛡️ 여행자보험 비교 · 나트랑 4박5일</div>
-    <div class="ins-intro-desc">두 상품을 비교했어요. <strong>해외 의료비 한도 차이</strong>가 핵심입니다. 아이 동반 가족여행에서 현지 병원 이용 가능성을 고려하면 한도가 넉넉한 쪽이 유리해요. 보험료는 5일 기준 · 30세 성인 예시가이며 실제 가입 시 연령·인원에 따라 달라질 수 있어요.</div>
-  </div>
-
-  <div class="ins-toggle">
-    <button class="itoggle-btn active" onclick="showIns('compare')">보장 비교</button>
-    <button class="itoggle-btn" onclick="showIns('price')">보험료</button>
-    <button class="itoggle-btn" onclick="showIns('calc')">가족별 비용</button>
-  </div>
-
-  <!-- 비교 -->
-  <div id="ins-compare">
-    <div class="ins-header">
-      <div class="ins-hcell blank"></div>
-      <div class="ins-hcell col-a">베나자협력사<br><span style="font-size:10px;font-weight:400;opacity:.7;">안심플랜 기준</span></div>
-      <div class="ins-hcell col-b">든든플랜<br><span style="font-size:10px;font-weight:400;opacity:.7;">최상위 플랜</span></div>
-    </div>
-    <div class="ins-table">
-      <div class="ins-group">💊 해외 의료비</div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">상해 의료비</div>
-        <div class="ins-cell va">US $30,000</div>
-        <div class="ins-cell vb">US $70,000~$100,000<span class="badge-up">↑ 높음</span></div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">질병 의료비</div>
-        <div class="ins-cell va">US $30,000</div>
-        <div class="ins-cell vb">US $70,000~$100,000<span class="badge-up">↑ 높음</span></div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">긴급구조/송환</div>
-        <div class="ins-cell na">—</div>
-        <div class="ins-cell vb">US $50,000<span class="badge-up">포함</span></div>
-      </div>
-      <div class="ins-group">⚰️ 사망 보장</div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">상해 사망/후유장해</div>
-        <div class="ins-cell va">2억원</div>
-        <div class="ins-cell vb">3억원<span class="badge-up">↑ 높음</span></div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">질병 사망/고도후유장해</div>
-        <div class="ins-cell va">2,000만원</div>
-        <div class="ins-cell vb">5,000만원<span class="badge-up">↑ 높음</span></div>
-      </div>
-      <div class="ins-group">✈️ 항공 / 수하물</div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">항공기 지연/결항<br><span style="font-size:10px;color:var(--ink-light);">4시간 기준</span></div>
-        <div class="ins-cell na">미확인</div>
-        <div class="ins-cell vb">최대 100만원<span class="badge-up">포함</span></div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">수하물 지연도착<br><span style="font-size:10px;color:var(--ink-light);">6시간 기준</span></div>
-        <div class="ins-cell na">미확인</div>
-        <div class="ins-cell vb">최대 70만원<span class="badge-up">포함</span></div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">수하물 파손/도난</div>
-        <div class="ins-cell va">50만원</div>
-        <div class="ins-cell vb">100만원<span class="badge-up">↑ 높음</span></div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">항공기 납치</div>
-        <div class="ins-cell na">—</div>
-        <div class="ins-cell vb">140만원</div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">항공기 납치 일당</div>
-        <div class="ins-cell va">7만원/일</div>
-        <div class="ins-cell na">미확인</div>
-      </div>
-      <div class="ins-group">🏥 국내 실손 의료비</div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">포함 여부</div>
-        <div class="ins-cell va">선택 추가</div>
-        <div class="ins-cell vb">기본 포함<span class="badge-up">기본</span></div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">입원 급여/비급여</div>
-        <div class="ins-cell va">각 1,000만원</div>
-        <div class="ins-cell vb">각 1,000만원</div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">통원 급여/비급여</div>
-        <div class="ins-cell va">각 10만원</div>
-        <div class="ins-cell vb">각 10만원</div>
-      </div>
-      <div class="ins-group">💉 비급여 특약</div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">도수치료/체외충격파</div>
-        <div class="ins-cell va">350만원</div>
-        <div class="ins-cell vb">350만원</div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">MRI/MRA 진단</div>
-        <div class="ins-cell va">300만원</div>
-        <div class="ins-cell vb">300만원</div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">주사료</div>
-        <div class="ins-cell va">250만원</div>
-        <div class="ins-cell vb">250만원</div>
-      </div>
-      <div class="ins-group">🧾 기타</div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">배상책임</div>
-        <div class="ins-cell va">3,000만원</div>
-        <div class="ins-cell vb">5,000만원<span class="badge-up">↑ 높음</span></div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">여행중단 추가비용</div>
-        <div class="ins-cell va">50만원</div>
-        <div class="ins-cell vb">50만원</div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">식중독 입원일당</div>
-        <div class="ins-cell va">50만원</div>
-        <div class="ins-cell vb">정액 50만원</div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">특정전염병 치료</div>
-        <div class="ins-cell na">—</div>
-        <div class="ins-cell vb">정액 50만원<span class="badge-up">포함</span></div>
-      </div>
-      <div class="ins-row">
-        <div class="ins-cell lbl">여권 분실</div>
-        <div class="ins-cell na">—</div>
-        <div class="ins-cell vb">6만원</div>
-      </div>
-    </div>
-    <div class="ins-recommend">
-      <div class="ins-recommend-tag">💡 추천 요약</div>
-      <div class="ins-recommend-body">
-        <strong>든든플랜</strong>이 전반적으로 보장이 두텁습니다. 해외 의료비가 최대 US $10만달러로 베나자협력사(US $3만달러) 대비 3배 이상 높고, 항공 지연·수하물 관련 보장도 더 풍부해요.<br><br>
-        가격 차이는 5일 기준 약 <strong>1,700원 내외</strong> — 여행 한 번 전체에서 가족 단위로 몇천 원 차이면 든든플랜이 가성비 면에서 더 낫습니다.
-      </div>
-    </div>
-  </div>
-
-  <!-- 보험료 -->
-  <div id="ins-price" style="display:none;">
-    <div class="ins-price-grid">
-      <div class="ins-price-card">
-        <div class="ins-price-top">
-          <div class="ins-price-name">베나자협력사</div>
-          <div class="ins-price-sub">안심플랜 · 5일</div>
-        </div>
-        <div class="ins-price-bottom a">
-          <div>
-            <div class="ins-price-label">30세 남성</div>
-            <div class="ins-price-val a">9,510원</div>
-          </div>
-          <div style="text-align:right;">
-            <div class="ins-price-label">30세 여성</div>
-            <div class="ins-price-val a">8,880원</div>
-          </div>
-        </div>
-      </div>
-      <div class="ins-price-card">
-        <div class="ins-price-top">
-          <div class="ins-price-name">든든플랜</div>
-          <div class="ins-price-sub">최상위 플랜 · 5일</div>
-        </div>
-        <div class="ins-price-bottom b">
-          <div>
-            <div class="ins-price-label">30세 남성 기준</div>
-            <div class="ins-price-val b">11,240원</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="ins-price-grid">
-      <div class="ins-price-card">
-        <div class="ins-price-top">
-          <div class="ins-price-name">베나자협력사</div>
-          <div class="ins-price-sub">10세 · 20세 · 40세 · 50세</div>
-        </div>
-        <div class="ins-price-bottom a">
-          <div><div class="ins-price-label">10세</div><div class="ins-price-val a" style="font-size:15px;">5,800</div></div>
-          <div><div class="ins-price-label">20세</div><div class="ins-price-val a" style="font-size:15px;">9,230</div></div>
-          <div><div class="ins-price-label">40세</div><div class="ins-price-val a" style="font-size:15px;">9,910</div></div>
-          <div><div class="ins-price-label">50세</div><div class="ins-price-val a" style="font-size:15px;">11,620</div></div>
-        </div>
-      </div>
-      <div class="ins-price-card">
-        <div class="ins-price-top">
-          <div class="ins-price-name">베나자협력사 (여성)</div>
-          <div class="ins-price-sub">10세 · 20세 · 40세 · 50세</div>
-        </div>
-        <div class="ins-price-bottom a">
-          <div><div class="ins-price-label">10세</div><div class="ins-price-val a" style="font-size:15px;">5,410</div></div>
-          <div><div class="ins-price-label">20세</div><div class="ins-price-val a" style="font-size:15px;">8,490</div></div>
-          <div><div class="ins-price-label">40세</div><div class="ins-price-val a" style="font-size:15px;">9,780</div></div>
-          <div><div class="ins-price-label">50세</div><div class="ins-price-val a" style="font-size:15px;">11,870</div></div>
-        </div>
-      </div>
-    </div>
-    <div class="note-bar">💡 보험료는 베나자협력사 예시표 기준 · 든든플랜 보험료(11,240원)는 30세 기준 제시가. 실제 가입 시 연령·플랜 옵션에 따라 상이할 수 있어요.</div>
-  </div>
-
-  <!-- 가족별 비용 -->
-  <div id="ins-calc" style="display:none;">
-    <div class="ins-calc-box">
-      <div class="ins-calc-header">도윤이네 · 성인2+소아2 · 든든플랜 기준</div>
-      <div class="ins-calc-row"><div class="ins-calc-lbl">성인 2명<span style="display:block;font-size:11px;">30세 기준 11,240원 × 2</span></div><div class="ins-calc-val" style="color:var(--ocean);">22,480원</div></div>
-      <div class="ins-calc-row"><div class="ins-calc-lbl">소아 2명<span style="display:block;font-size:11px;">10세 기준 5,800원 × 2</span></div><div class="ins-calc-val" style="color:var(--ocean);">11,600원</div></div>
-      <div class="ins-total-bar"><span style="font-size:13px;color:rgba(255,255,255,.75);">도윤이네 보험료 합계</span><span style="font-size:20px;font-weight:500;color:white;">34,080원</span></div>
-    </div>
-    <div class="ins-calc-box">
-      <div class="ins-calc-header">예담이네 · 성인2+소아1 · 든든플랜 기준</div>
-      <div class="ins-calc-row"><div class="ins-calc-lbl">성인 2명<span style="display:block;font-size:11px;">30세 기준 11,240원 × 2</span></div><div class="ins-calc-val" style="color:var(--teal);">22,480원</div></div>
-      <div class="ins-calc-row"><div class="ins-calc-lbl">소아 1명<span style="display:block;font-size:11px;">10세 기준 5,800원 × 1</span></div><div class="ins-calc-val" style="color:var(--teal);">5,800원</div></div>
-      <div class="ins-total-bar green"><span style="font-size:13px;color:rgba(255,255,255,.75);">예담이네 보험료 합계</span><span style="font-size:20px;font-weight:500;color:white;">28,280원</span></div>
-    </div>
-    <div class="ins-calc-box">
-      <div class="ins-calc-header">두 가족 합산</div>
-      <div class="ins-calc-row"><div class="ins-calc-lbl">도윤이네</div><div class="ins-calc-val">34,080원</div></div>
-      <div class="ins-calc-row"><div class="ins-calc-lbl">예담이네</div><div class="ins-calc-val">28,280원</div></div>
-      <div class="ins-total-bar"><span style="font-size:13px;color:rgba(255,255,255,.75);">7인 총 보험료 (5일)</span><span style="font-size:20px;font-weight:500;color:white;">62,360원</span></div>
-    </div>
-    <div class="note-bar">💡 소아 보험료는 베나자협력사 10세 기준(5,800원)으로 계산 · 든든플랜 소아 실제가는 가입 시 확인 필요. 전체 여행 예산(7,185,330원) 대비 보험료 비중은 약 <strong>0.87%</strong>입니다.</div>
-  </div>
-</div>
-
-
-<!-- ===== 패스트트랙 ===== -->
-<div id="section-fasttrack" class="section">
-
-  <div style="background:var(--ocean);border-radius:12px;padding:18px;color:white;margin-bottom:1.25rem;display:flex;align-items:center;gap:14px;">
-    <div style="font-size:28px;flex-shrink:0;">🚀</div>
-    <div>
-      <div style="font-size:14px;font-weight:500;margin-bottom:4px;">VIP 패스트트랙 04 · 나트랑 입출국</div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.6;">
-        입국(한국→나트랑) + 출국(나트랑→한국) 각 12,800원 · 만 2세 미만 무료<br>
-        1인 기준 상품 — 인원 수에 맞게 각자 구매
-      </div>
-    </div>
-  </div>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem;">
-    <div class="cost-card" style="margin-bottom:0;">
-      <div class="cost-card-header" style="background:rgba(26,95,122,0.1);">
-        <span style="font-size:12px;font-weight:500;color:var(--ocean);">🇻🇳 입국 · 한국→나트랑</span>
-      </div>
-      <div style="padding:14px 16px;">
-        <div style="font-size:22px;font-weight:500;color:var(--ink);">12,800<span style="font-size:13px;font-weight:400;">원</span></div>
-        <div style="font-size:10px;color:var(--ink-light);margin-bottom:10px;">성인·아동 동일 (만 2세 이상)</div>
-        <div style="height:1px;background:var(--sand);margin-bottom:10px;"></div>
-        <div style="font-size:16px;font-weight:500;color:var(--teal);">무료</div>
-        <div style="font-size:10px;color:var(--ink-light);">유아 (만 2세 미만)</div>
-      </div>
-    </div>
-    <div class="cost-card" style="margin-bottom:0;">
-      <div class="cost-card-header" style="background:rgba(11,122,117,0.1);">
-        <span style="font-size:12px;font-weight:500;color:var(--teal);">🇰🇷 출국 · 나트랑→한국</span>
-      </div>
-      <div style="padding:14px 16px;">
-        <div style="font-size:22px;font-weight:500;color:var(--ink);">12,800<span style="font-size:13px;font-weight:400;">원</span></div>
-        <div style="font-size:10px;color:var(--ink-light);margin-bottom:10px;">성인·아동 동일 (만 2세 이상)</div>
-        <div style="height:1px;background:var(--sand);margin-bottom:10px;"></div>
-        <div style="font-size:16px;font-weight:500;color:var(--teal);">무료</div>
-        <div style="font-size:10px;color:var(--ink-light);">유아 (만 2세 미만)</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="family-toggle" style="margin-bottom:1.25rem;">
-    <button class="ftoggle-btn active" onclick="showFt('doyun')">도윤이네</button>
-    <button class="ftoggle-btn" onclick="showFt('yedam')">예담이네</button>
-    <button class="ftoggle-btn" onclick="showFt('combined')">합산</button>
-  </div>
-
-  <div id="ft-doyun">
-    <div class="cost-card">
-      <div class="cost-card-header">
-        <span class="cost-card-label">도윤이네 · 성인2 + 소아2</span>
-        <span style="font-size:11px;color:var(--ink-light);">만 2세 이상 4인 기준</span>
-      </div>
-      <div class="cost-rows">
-        <div class="cost-row">
-          <div class="cost-row-label">🇻🇳 입국 패스트트랙<span class="cost-row-sub">12,800원 × 4인</span></div>
-          <div class="cost-row-val">51,200원</div>
-        </div>
-        <div class="cost-row">
-          <div class="cost-row-label">🇰🇷 출국 패스트트랙<span class="cost-row-sub">12,800원 × 4인</span></div>
-          <div class="cost-row-val">51,200원</div>
-        </div>
-      </div>
-      <div class="cost-total">
-        <span class="cost-total-label">도윤이네 합계</span>
-        <span class="cost-total-val">102,400원</span>
-      </div>
-    </div>
-    <div class="note-bar">💡 소아 중 만 2세 미만 아이가 있다면 해당 인원 제외하고 구매하세요.</div>
-  </div>
-
-  <div id="ft-yedam" style="display:none;">
-    <div class="cost-card">
-      <div class="cost-card-header">
-        <span class="cost-card-label">예담이네 · 성인2 + 소아1</span>
-        <span style="font-size:11px;color:var(--ink-light);">만 2세 이상 3인 기준</span>
-      </div>
-      <div class="cost-rows">
-        <div class="cost-row">
-          <div class="cost-row-label">🇻🇳 입국 패스트트랙<span class="cost-row-sub">12,800원 × 3인</span></div>
-          <div class="cost-row-val">38,400원</div>
-        </div>
-        <div class="cost-row">
-          <div class="cost-row-label">🇰🇷 출국 패스트트랙<span class="cost-row-sub">12,800원 × 3인</span></div>
-          <div class="cost-row-val">38,400원</div>
-        </div>
-      </div>
-      <div class="cost-total" style="background:var(--teal);">
-        <span class="cost-total-label">예담이네 합계</span>
-        <span class="cost-total-val">76,800원</span>
-      </div>
-    </div>
-    <div class="note-bar">💡 소아 중 만 2세 미만 아이가 있다면 해당 인원 제외하고 구매하세요.</div>
-  </div>
-
-  <div id="ft-combined" style="display:none;">
-    <div class="combined-box">
-      <div class="combined-row">
-        <div class="combined-cell">
-          <div class="cc-label">도윤이네 (4인)</div>
-          <div class="cc-val cc-doyun">102,400원</div>
-        </div>
-        <div class="combined-cell">
-          <div class="cc-label">예담이네 (3인)</div>
-          <div class="cc-val cc-yedam">76,800원</div>
-        </div>
-      </div>
-      <div class="combined-row">
-        <div class="combined-cell">
-          <div class="cc-label">입국 합계</div>
-          <div class="cc-val" style="font-size:13px;color:var(--ink);">51,200 + 38,400</div>
-        </div>
-        <div class="combined-cell">
-          <div class="cc-label">출국 합계</div>
-          <div class="cc-val" style="font-size:13px;color:var(--ink);">51,200 + 38,400</div>
-        </div>
-      </div>
-      <div class="combined-total-row">
-        <span style="font-size:14px;font-weight:500;color:var(--ink);">두 가족 총합</span>
-        <span style="font-size:22px;font-weight:500;color:var(--ocean);">179,200원</span>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-
-<!-- ===== 픽업 ===== -->
-<div id="section-pickup" class="section">
-
-  <div style="background:var(--ocean);border-radius:12px;padding:18px;color:white;margin-bottom:1.25rem;display:flex;align-items:center;gap:14px;">
-    <div style="font-size:28px;flex-shrink:0;">🚐</div>
-    <div>
-      <div style="font-size:14px;font-weight:500;margin-bottom:4px;">공항 픽업 · 깜라인 공항 → 호텔</div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.6;">
-        16인승 밴 1대 · 유아 제외 최대 10명 탑승<br>
-        현장 잔금 US $30 별도 지불
-      </div>
-    </div>
-  </div>
-
-  <div class="cost-card" style="margin-bottom:1rem;">
     <div class="cost-card-header">
-      <span class="cost-card-label">차량 정보 · (C) 16인승 밴</span>
+      <span class="cost-card-label">🏨 하바나 호텔</span>
+      <span style="font-size:12px; color:var(--ink-light);">6/2 ~ 6/4 · 2박</span>
     </div>
     <div class="cost-rows">
       <div class="cost-row">
-        <div class="cost-row-label">차종</div>
-        <div class="cost-row-val">16인승 밴 1대</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">최대 탑승 인원</div>
-        <div class="cost-row-val">유아 제외 최대 10명</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">두 가족 합산</div>
-        <div class="cost-row-val" style="color:var(--teal);">성인4 + 소아3 = 7명 ✅</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">노선</div>
-        <div class="cost-row-val">깜라인 공항 → 하바나 호텔</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">현장 잔금</div>
-        <div class="cost-row-val" style="color:var(--coral);">US $30 (현장 달러 현금)</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cost-card" style="margin-bottom:1rem;">
-    <div class="cost-card-header">
-      <span class="cost-card-label">픽업 동선 · 6월 2일 (화)</span>
-    </div>
-    <div style="padding:16px 18px;">
-      <div style="display:flex;align-items:center;gap:0;margin-bottom:16px;">
-        <div style="text-align:center;min-width:80px;">
-          <div style="font-size:20px;margin-bottom:4px;">🛬</div>
-          <div style="font-size:11px;font-weight:500;color:var(--ocean);">깜라인 공항</div>
-          <div style="font-size:10px;color:var(--ink-light);">20:40 도착</div>
-        </div>
-        <div style="flex:1;position:relative;height:2px;background:var(--sand-dark);margin:0 12px;">
-          <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--ink-light);white-space:nowrap;">🚐 약 45분</div>
-        </div>
-        <div style="text-align:center;min-width:80px;">
-          <div style="font-size:20px;margin-bottom:4px;">🏨</div>
-          <div style="font-size:11px;font-weight:500;color:var(--ocean);">하바나 호텔</div>
-          <div style="font-size:10px;color:var(--ink-light);">저녁 체크인</div>
+        <div>
+          <div style="font-size:13px; font-weight:500; color:var(--ink);">Premier Havana Nha Trang Hotel</div>
+          <span class="cost-row-sub">디럭스 오션뷰 · 조식포함 · 쩐푸 비치</span>
         </div>
       </div>
-      <div style="background:rgba(224,122,95,0.1);border-left:3px solid var(--coral);border-radius:0 8px 8px 0;padding:10px 12px;font-size:12px;color:var(--ink-mid);line-height:1.7;">
-        💵 <strong>현장 잔금 US $30</strong> — 달러 현금 필수. 탑승 전 준비해두세요.
+      <div class="cost-row">
+        <div class="cost-row-label">도윤이네 <span class="cost-row-sub">성인2+소아2 · 1박 199,346원</span></div>
+        <div class="cost-row-val">398,692원</div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-row-label">예담이네 <span class="cost-row-sub">성인2+소아1 · 1박 175,182원</span></div>
+        <div class="cost-row-val">350,364원</div>
       </div>
     </div>
   </div>
 
   <div class="cost-card">
     <div class="cost-card-header">
-      <span class="cost-card-label">두 가족 탑승 정리</span>
+      <span class="cost-card-label">🌴 셀렉텀 노아 리조트</span>
+      <span style="font-size:12px; color:var(--ink-light);">6/4 ~ 6/6 · 2박</span>
     </div>
     <div class="cost-rows">
       <div class="cost-row">
-        <div class="cost-row-label">도윤이네<span class="cost-row-sub">성인2 + 소아2</span></div>
-        <div class="cost-row-val">4명</div>
+        <div>
+          <div style="font-size:13px; font-weight:500; color:var(--ink);">Selectum Noa Resort Cam Ranh</div>
+          <span class="cost-row-sub">조식포함 · 깜란 비치 · 스노클링 · 얼리버드</span>
+        </div>
       </div>
       <div class="cost-row">
-        <div class="cost-row-label">예담이네<span class="cost-row-sub">성인2 + 소아1</span></div>
-        <div class="cost-row-val">3명</div>
-      </div>
-      <div class="cost-row" style="background:rgba(11,122,117,0.04);">
-        <div class="cost-row-label" style="font-weight:500;color:var(--ink);">합계 탑승 인원</div>
-        <div class="cost-row-val" style="color:var(--teal);font-size:15px;">7명 / 최대 10명</div>
-      </div>
-    </div>
-    <div class="cost-total">
-      <span class="cost-total-label">현장 잔금 (1대)</span>
-      <span class="cost-total-val">US $30</span>
-    </div>
-  </div>
-
-  <div class="note-bar" style="margin-top:1rem;">
-    💡 유아(만 2세 미만)는 탑승 정원 카운팅 제외. 두 가족 합산 7명으로 1대로 충분해요.
-  </div>
-
-</div>
-
-
-<!-- ===== 프리미엄팩 비교 ===== -->
-<div id="section-premium" class="section">
-
-  <div style="background:var(--ocean);border-radius:12px;padding:18px;color:white;margin-bottom:1.25rem;">
-    <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:8px;">베나자 프리미엄팩</div>
-    <div style="font-size:14px;font-weight:500;margin-bottom:6px;">패스트트랙 / 공항픽업 / 유심 / 러브레터 / 마사지 / 여행자보험</div>
-    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
-      <span style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 12px;font-size:11px;">성인(만11세↑) 59,900원</span>
-      <span style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 12px;font-size:11px;">아동(만3~11세) 39,900원</span>
-      <span style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 12px;font-size:11px;">무료아동(만3세↓) 0원</span>
-    </div>
-  </div>
-
-  <!-- 포함 항목 요약 -->
-  <div class="cost-card" style="margin-bottom:1rem;">
-    <div class="cost-card-header">
-      <span class="cost-card-label">📦 포함 항목 · 개별 구매 정보</span>
-    </div>
-    <div class="cost-rows">
-      <div class="cost-row">
-        <div class="cost-row-label">🚀 패스트트랙<span class="cost-row-sub">입국+출국 · 만2세 이상 1인 12,800원</span></div>
-        <div class="cost-row-val" style="font-size:12px;">도윤 102,400 / 예담 76,800</div>
+        <div class="cost-row-label">도윤이네 <span class="cost-row-sub">성인2+소아2 · 1박 459,326원</span></div>
+        <div class="cost-row-val">918,652원</div>
       </div>
       <div class="cost-row">
-        <div class="cost-row-label">🚐 공항픽업<span class="cost-row-sub">16인승 1대 · 두 가족 공동 US $30 현장잔금</span></div>
-        <div class="cost-row-val" style="font-size:12px;">각 20,700원 분담</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">📶 유심<span class="cost-row-sub">나트랑 무제한 4일 · 택배비 포함</span></div>
-        <div class="cost-row-val" style="font-size:12px;">10,900원 / 1인</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">💆 마사지<span class="cost-row-sub">1인 1회 기준</span></div>
-        <div class="cost-row-val" style="font-size:12px;">14,000~20,000원</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">💌 러브레터<span class="cost-row-sub">웰컴 서비스</span></div>
-        <div class="cost-row-val"><span style="font-size:10px;padding:2px 7px;border-radius:4px;background:rgba(201,168,76,0.15);color:#8B6914;font-weight:500;">가격 미확인</span></div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">🛡️ 여행자보험<span class="cost-row-sub">베나자협력사 or 든든플랜</span></div>
-        <div class="cost-row-val" style="font-size:12px;">8,890~11,240원 / 1인</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 마사지 슬라이더 -->
-  <div class="cost-card" style="margin-bottom:1rem;">
-    <div class="cost-card-header">
-      <span class="cost-card-label">💆 마사지 금액 조절 (1인 기준)</span>
-      <span id="massage-display" style="font-size:14px;font-weight:500;color:var(--ocean);">17,000원</span>
-    </div>
-    <div style="padding:14px 18px;">
-      <input type="range" min="14000" max="20000" value="17000" step="1000" id="massage-slider" style="width:100%;">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink-light);margin-top:6px;">
-        <span>14,000원 (최저)</span><span>20,000원 (최고)</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- 도윤이네 -->
-  <div style="font-size:11px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-light);margin:1.25rem 0 0.5rem;">도윤이네 · 성인2 + 소아2</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0.75rem;">
-    <div style="background:var(--white);border-radius:10px;padding:14px;border:0.5px solid var(--sand-dark);">
-      <div style="font-size:11px;color:var(--ink-light);margin-bottom:6px;">개별 구매 합산</div>
-      <div style="font-size:18px;font-weight:500;color:var(--ink);" id="d-ind-disp">—</div>
-      <div style="font-size:10px;color:var(--ink-light);margin-top:3px;">러브레터 제외</div>
-    </div>
-    <div style="background:var(--white);border-radius:10px;padding:14px;border:0.5px solid var(--sand-dark);">
-      <div style="font-size:11px;color:var(--ink-light);margin-bottom:6px;">베나자 프리미엄팩</div>
-      <div style="font-size:18px;font-weight:500;color:var(--ink);">199,600원</div>
-      <div style="font-size:10px;color:var(--ink-light);margin-top:3px;">59,900×2 + 39,900×2</div>
-    </div>
-  </div>
-  <div class="cost-card" style="margin-bottom:0.75rem;">
-    <div class="cost-rows">
-      <div class="cost-row">
-        <div class="cost-row-label">🛡️ 보험 (든든플랜)<span class="cost-row-sub">성인2×11,240 + 소아2×5,800</span></div>
-        <div class="cost-row-val">34,080원</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">🚀 패스트트랙<span class="cost-row-sub">4인 × 12,800 × 왕복</span></div>
-        <div class="cost-row-val">102,400원</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">🚐 픽업 분담<span class="cost-row-sub">US $30 × 1/2 (예담이네와 공동)</span></div>
-        <div class="cost-row-val">20,700원</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">📶 유심<span class="cost-row-sub">10,900원 × 4인</span></div>
-        <div class="cost-row-val">43,600원</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">💆 마사지<span class="cost-row-sub">성인2명 기준</span></div>
-        <div class="cost-row-val" id="d-massage-val">—</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">💌 러브레터<span class="cost-row-sub">가격 미확인</span></div>
-        <div class="cost-row-val"><span style="font-size:10px;padding:2px 7px;border-radius:4px;background:rgba(201,168,76,0.15);color:#8B6914;font-weight:500;">미확인</span></div>
-      </div>
-    </div>
-    <div style="background:var(--ocean);padding:13px 18px;display:flex;justify-content:space-between;align-items:center;">
-      <span style="font-size:12px;color:rgba(255,255,255,0.75);">개별 합계 (러브레터 제외)</span>
-      <span style="font-size:18px;font-weight:500;color:white;" id="d-total-val">—</span>
-    </div>
-  </div>
-  <div id="d-result" style="border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
-    <span id="d-result-txt" style="font-size:13px;font-weight:500;"></span>
-    <span id="d-result-sub" style="font-size:11px;"></span>
-  </div>
-
-  <!-- 예담이네 -->
-  <div style="font-size:11px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-light);margin:0 0 0.5rem;">예담이네 · 성인2 + 소아1</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0.75rem;">
-    <div style="background:var(--white);border-radius:10px;padding:14px;border:0.5px solid var(--sand-dark);">
-      <div style="font-size:11px;color:var(--ink-light);margin-bottom:6px;">개별 구매 합산</div>
-      <div style="font-size:18px;font-weight:500;color:var(--ink);" id="y-ind-disp">—</div>
-      <div style="font-size:10px;color:var(--ink-light);margin-top:3px;">러브레터 제외</div>
-    </div>
-    <div style="background:var(--white);border-radius:10px;padding:14px;border:0.5px solid var(--sand-dark);">
-      <div style="font-size:11px;color:var(--ink-light);margin-bottom:6px;">베나자 프리미엄팩</div>
-      <div style="font-size:18px;font-weight:500;color:var(--ink);">159,700원</div>
-      <div style="font-size:10px;color:var(--ink-light);margin-top:3px;">59,900×2 + 39,900×1</div>
-    </div>
-  </div>
-  <div class="cost-card" style="margin-bottom:0.75rem;">
-    <div class="cost-rows">
-      <div class="cost-row">
-        <div class="cost-row-label">🛡️ 보험 (든든플랜)<span class="cost-row-sub">성인2×11,240 + 소아1×5,800</span></div>
-        <div class="cost-row-val">28,280원</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">🚀 패스트트랙<span class="cost-row-sub">3인 × 12,800 × 왕복</span></div>
-        <div class="cost-row-val">76,800원</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">🚐 픽업 분담<span class="cost-row-sub">US $30 × 1/2 (도윤이네와 공동)</span></div>
-        <div class="cost-row-val">20,700원</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">📶 유심<span class="cost-row-sub">10,900원 × 3인</span></div>
-        <div class="cost-row-val">32,700원</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">💆 마사지<span class="cost-row-sub">성인2명 기준</span></div>
-        <div class="cost-row-val" id="y-massage-val">—</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">💌 러브레터<span class="cost-row-sub">가격 미확인</span></div>
-        <div class="cost-row-val"><span style="font-size:10px;padding:2px 7px;border-radius:4px;background:rgba(201,168,76,0.15);color:#8B6914;font-weight:500;">미확인</span></div>
-      </div>
-    </div>
-    <div style="background:var(--teal);padding:13px 18px;display:flex;justify-content:space-between;align-items:center;">
-      <span style="font-size:12px;color:rgba(255,255,255,0.75);">개별 합계 (러브레터 제외)</span>
-      <span style="font-size:18px;font-weight:500;color:white;" id="y-total-val">—</span>
-    </div>
-  </div>
-  <div id="y-result" style="border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
-    <span id="y-result-txt" style="font-size:13px;font-weight:500;"></span>
-    <span id="y-result-sub" style="font-size:11px;"></span>
-  </div>
-
-  <!-- 두 가족 합산 -->
-  <div style="font-size:11px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-light);margin:0 0 0.5rem;">두 가족 합산</div>
-  <div class="cost-card" style="margin-bottom:1rem;">
-    <div class="cost-rows">
-      <div class="cost-row">
-        <div class="cost-row-label">개별 구매 총합 <span style="font-size:10px;padding:2px 6px;border-radius:3px;background:rgba(201,168,76,0.15);color:#8B6914;">러브레터 제외</span></div>
-        <div class="cost-row-val" id="both-ind-val">—</div>
-      </div>
-      <div class="cost-row">
-        <div class="cost-row-label">프리미엄팩 총합</div>
-        <div class="cost-row-val">359,300원</div>
-      </div>
-      <div class="cost-row" style="background:rgba(0,0,0,0.02);">
-        <div class="cost-row-label" style="font-weight:500;color:var(--ink);">차액</div>
-        <div style="font-size:16px;font-weight:500;" id="both-diff-val">—</div>
+        <div class="cost-row-label">예담이네 <span class="cost-row-sub">성인2+소아1 · 1박 411,911원</span></div>
+        <div class="cost-row-val">823,822원</div>
       </div>
     </div>
   </div>
 
   <div class="note-bar">
-    💡 러브레터 가격 확인 후 개별 합계에 추가하면 최종 결론이 나와요. 마사지를 소아까지 포함하면 개별 구매 비용이 더 올라가요. 유심을 소아에게 발급하지 않을 경우엔 개별이 더 유리해질 수 있어요.
+    💡 두 가족 각자 예약 · 하바나는 시내 중심부(쩐푸 비치), 셀렉텀 노아는 깜란 비치(공항 근처) — 귀국 전날 이동 동선에 유리해요.
   </div>
 
 </div>
 
+<!-- ===== 항공 ===== -->
+<div id="section-flight" class="section">
+
+  <div class="flight-card">
+    <div class="flight-label">✈️ 에어부산 · 가는 편</div>
+    <div class="flight-row">
+      <div class="flight-dot"></div>
+      <div class="flight-time">17:10</div>
+      <div class="flight-line"><div class="flight-line-label">BX787 · 직항 3시간 30분</div></div>
+      <div class="flight-time" style="text-align:right;">20:40</div>
+      <div class="flight-dot flight-dot-muted"></div>
+    </div>
+    <div class="flight-cities"><span>인천(ICN) T2 출발</span><span>나트랑 깜라인(CXR) 도착</span></div>
+    <div class="flight-date">2026년 6월 2일 (화)</div>
+    <div class="flight-divider"></div>
+    <div class="flight-label">✈️ 에어부산 · 오는 편</div>
+    <div class="flight-row">
+      <div class="flight-dot"></div>
+      <div class="flight-time">21:50</div>
+      <div class="flight-line"><div class="flight-line-label">BX788 · 직항 3시간 15분</div></div>
+      <div class="flight-time" style="text-align:right;">05:05</div>
+      <div class="flight-dot flight-dot-muted"></div>
+    </div>
+    <div class="flight-cities"><span>나트랑 깜라인(CXR) 출발</span><span>인천(ICN) T2 도착</span></div>
+    <div class="flight-date">2026년 6월 6일 (토) 출발 → 6월 7일 (일) 도착</div>
+  </div>
+
+  <div class="cost-card">
+    <div class="cost-card-header">
+      <span class="cost-card-label">항공권 금액</span>
+    </div>
+    <div class="cost-rows">
+      <div class="cost-row">
+        <div class="cost-row-label">도윤이네 <span class="cost-row-sub">성인2+소아2 · 예약번호 KKUE2P</span></div>
+        <div class="cost-row-val">2,654,000원</div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-row-label">예담이네 <span class="cost-row-sub">성인2+소아1</span></div>
+        <div class="cost-row-val">2,039,800원</div>
+      </div>
+    </div>
+  </div>
+
 </div>
-<footer>나트랑 6월 2일 출발 · 4박 5일 · 에어부산 BX787/788 · 실제 예약 전 재확인 요망</footer>
+
+<!-- ===== 비용 ===== -->
+<div id="section-cost" class="section">
+
+  <div class="family-toggle">
+    <button class="ftoggle-btn active" onclick="showFamily('doyun')">도윤이네</button>
+    <button class="ftoggle-btn" onclick="showFamily('yedam')">예담이네</button>
+    <button class="ftoggle-btn" onclick="showFamily('combined')">합산</button>
+  </div>
+
+  <!-- 도윤이네 -->
+  <div id="cost-doyun">
+    <div class="cost-card">
+      <div class="cost-card-header">
+        <span class="cost-card-label">도윤이네 · 성인2+소아2</span>
+      </div>
+      <div class="cost-rows">
+        <div class="cost-row">
+          <div class="cost-row-label">✈️ 에어부산 (4인)</div>
+          <div class="cost-row-val">2,654,000원</div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-row-label">🏨 하바나 호텔 2박<span class="cost-row-sub">199,346원 × 2</span></div>
+          <div class="cost-row-val">398,692원</div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-row-label">🌴 셀렉텀 노아 2박<span class="cost-row-sub">459,326원 × 2</span></div>
+          <div class="cost-row-val">918,652원</div>
+        </div>
+      </div>
+      <div class="cost-total">
+        <span class="cost-total-label">합계</span>
+        <span class="cost-total-val">3,971,344원</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 예담이네 -->
+  <div id="cost-yedam" style="display:none;">
+    <div class="cost-card">
+      <div class="cost-card-header">
+        <span class="cost-card-label">예담이네 · 성인2+소아1</span>
+      </div>
+      <div class="cost-rows">
+        <div class="cost-row">
+          <div class="cost-row-label">✈️ 에어부산 (3인)</div>
+          <div class="cost-row-val">2,039,800원</div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-row-label">🏨 하바나 호텔 2박<span class="cost-row-sub">175,182원 × 2</span></div>
+          <div class="cost-row-val">350,364원</div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-row-label">🌴 셀렉텀 노아 2박<span class="cost-row-sub">411,911원 × 2</span></div>
+          <div class="cost-row-val">823,822원</div>
+        </div>
+      </div>
+      <div class="cost-total" style="background:var(--teal);">
+        <span class="cost-total-label">합계</span>
+        <span class="cost-total-val">3,213,986원</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 합산 -->
+  <div id="cost-combined" style="display:none;">
+    <div class="combined-box">
+      <div class="combined-row">
+        <div class="combined-cell">
+          <div class="cc-label">도윤이네 (성인2+소아2)</div>
+          <div class="cc-val cc-doyun">3,971,344원</div>
+        </div>
+        <div class="combined-cell">
+          <div class="cc-label">예담이네 (성인2+소아1)</div>
+          <div class="cc-val cc-yedam">3,213,986원</div>
+        </div>
+      </div>
+      <div class="combined-row">
+        <div class="combined-cell">
+          <div class="cc-label">✈️ 항공</div>
+          <div class="cc-val" style="font-size:13px; color:var(--ink);">2,654,000 + 2,039,800</div>
+        </div>
+        <div class="combined-cell">
+          <div class="cc-label">🏨 숙박 합계</div>
+          <div class="cc-val" style="font-size:13px; color:var(--ink);">1,317,344 + 1,174,186</div>
+        </div>
+      </div>
+      <div class="combined-total-row">
+        <span style="font-size:14px; font-weight:500; color:var(--ink);">두 가족 총합</span>
+        <span style="font-size:22px; font-weight:500; color:var(--ocean);">7,185,330원</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ===== 담시장 섹션 ===== -->
+<div id="section-market" class="section" style="padding:0; background:#1A1200; min-height:60vh;">
+
+  <div style="padding:1.5rem 1.5rem 1rem; position:relative; overflow:hidden;">
+    <div style="position:absolute; top:-30px; right:-20px; width:120px; height:120px; border-radius:50%; background:rgba(255,179,0,0.1); pointer-events:none;"></div>
+    <div style="font-size:10px; font-weight:700; letter-spacing:0.2em; color:#FFB300; margin-bottom:6px; text-transform:uppercase;">Nha Trang · Vietnam</div>
+    <div style="font-size:26px; font-weight:900; color:#FFFDF7; line-height:1.1; margin-bottom:4px;">담시장 시세표<br><span style="font-size:14px; font-weight:500; color:#FFB300; letter-spacing:0.1em;">DAM MARKET 2026</span></div>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;">
+      <span style="background:rgba(255,179,0,0.15); border:1px solid rgba(255,179,0,0.3); border-radius:20px; padding:3px 10px; font-size:11px; color:#FFB300; font-weight:600;">🕐 05:00~18:30</span>
+      <span style="background:rgba(255,107,53,0.15); border:1px solid rgba(255,107,53,0.3); border-radius:20px; padding:3px 10px; font-size:11px; color:#FF6B35; font-weight:600;">📍 Phan Bội Châu</span>
+      <span style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:20px; padding:3px 10px; font-size:11px; color:rgba(255,255,255,0.6); font-weight:600;">💵 현금만 가능</span>
+    </div>
+  </div>
+
+  <div style="background:#FFF8E1; margin:0 1rem 1rem; border-radius:8px; padding:8px 14px; font-size:12px; color:#795548;">
+    💱 <b>환율 기준:</b> 10,000동 ≈ 500원 · 100,000동 ≈ 5,000원
+  </div>
+
+  <div style="display:flex; overflow-x:auto; padding:0 1rem 12px; gap:8px; scrollbar-width:none;">
+    <button onclick="showMarketCat('shoes')" id="mbtn-shoes" style="flex-shrink:0; padding:8px 14px; border-radius:20px; border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:13px; background:#FF6B35; color:white; transition:all 0.2s;">👟 신발</button>
+    <button onclick="showMarketCat('clothes')" id="mbtn-clothes" style="flex-shrink:0; padding:8px 14px; border-radius:20px; border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:13px; background:#2A2000; color:#aaa; transition:all 0.2s;">👗 의류</button>
+    <button onclick="showMarketCat('bag')" id="mbtn-bag" style="flex-shrink:0; padding:8px 14px; border-radius:20px; border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:13px; background:#2A2000; color:#aaa; transition:all 0.2s;">👜 가방/잡화</button>
+    <button onclick="showMarketCat('food')" id="mbtn-food" style="flex-shrink:0; padding:8px 14px; border-radius:20px; border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:13px; background:#2A2000; color:#aaa; transition:all 0.2s;">🥭 식품/기념품</button>
+    <button onclick="showMarketCat('accessory')" id="mbtn-accessory" style="flex-shrink:0; padding:8px 14px; border-radius:20px; border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:13px; background:#2A2000; color:#aaa; transition:all 0.2s;">💍 액세서리</button>
+  </div>
+
+  <div style="padding:0 1rem;">
+
+    <div id="mcat-shoes">
+      <div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; padding:6px 12px; background:#0A0800; border-radius:10px 10px 0 0;"><span style="font-size:10px; font-weight:700; color:#FFB300;">처음 부르는 가격</span><span style="font-size:10px; font-weight:700; color:#4CAF50;">흥정 목표가 (동)</span><span style="font-size:10px; font-weight:700; color:#90CAF9;">≈ 원화</span></div>
+      <div style="border-radius:0 0 12px 12px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+        <div style="background:#1E1600; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">크록스 (짝퉁)</span> <span style="font-size:9px; font-weight:800; background:#FF6B35; color:#fff; border-radius:4px; padding:1px 5px;">HOT</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">250,000~350,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">160,000~200,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">8,000~10,000원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 JW기프트 280,000동보다 저렴. 2층 구매</div></div>
+        <div style="background:#261C00; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">크록스 지비츠 (참)</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">30,000~50,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">10,000~20,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">500~1,000원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 크록스 구매 시 함께 흥정하면 유리</div></div>
+        <div style="background:#1E1600; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">슬리퍼 / 샌들</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">200,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">100,000~150,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">5,000~7,500원</div></div></div>
+        <div style="background:#261C00; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">나이키 운동화 (짝퉁)</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">400,000~500,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">200,000~250,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">10,000~13,000원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 퀄리티 편차 큼. 꼼꼼히 확인 필수</div></div>
+      </div>
+    </div>
+
+    <div id="mcat-clothes" style="display:none;">
+      <div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; padding:6px 12px; background:#0A0800; border-radius:10px 10px 0 0;"><span style="font-size:10px; font-weight:700; color:#FFB300;">처음 부르는 가격</span><span style="font-size:10px; font-weight:700; color:#4CAF50;">흥정 목표가 (동)</span><span style="font-size:10px; font-weight:700; color:#90CAF9;">≈ 원화</span></div>
+      <div style="border-radius:0 0 12px 12px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+        <div style="background:#1E1600; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">휴양지 원피스</span> <span style="font-size:9px; font-weight:800; background:#FF6B35; color:#fff; border-radius:4px; padding:1px 5px;">HOT</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">150,000~200,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">80,000~120,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">4,000~6,000원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 여러 벌 묶음 구매 시 추가 할인 가능</div></div>
+        <div style="background:#261C00; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">코끼리 바지</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">100,000~150,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">70,000~90,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">3,500~4,500원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 숙소 잠옷·마사지 갈 때 필수템</div></div>
+        <div style="background:#1E1600; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">브랜드 티셔츠 (짝퉁)</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">150,000~200,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">90,000~100,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">4,500~5,000원</div></div></div>
+        <div style="background:#261C00; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">속옷 CK 등 짝퉁</span> <span style="font-size:9px; font-weight:800; background:#FF6B35; color:#fff; border-radius:4px; padding:1px 5px;">HOT</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">80,000~120,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">30,000~50,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">1,500~2,500원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 묶음 구매 시 장당 단가 뚝! 쟁여오기 인기템</div></div>
+        <div style="background:#1E1600; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">질러팬티 (현지 면 팬티)</span> <span style="font-size:9px; font-weight:800; background:#FF6B35; color:#fff; border-radius:4px; padding:1px 5px;">HOT</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">40,000~60,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">20,000~30,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">1,000~1,500원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 5장 묶음 70,000~100,000동. 얇고 통기성 좋아 더운 날씨 필수</div></div>
+        <div style="background:#261C00; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">양말 (브랜드 짝퉁)</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">50,000~80,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">20,000~30,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">1,000~1,500원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 속옷과 함께 묶음 흥정하면 더 유리</div></div>
+      </div>
+    </div>
+
+    <div id="mcat-bag" style="display:none;">
+      <div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; padding:6px 12px; background:#0A0800; border-radius:10px 10px 0 0;"><span style="font-size:10px; font-weight:700; color:#FFB300;">처음 부르는 가격</span><span style="font-size:10px; font-weight:700; color:#4CAF50;">흥정 목표가 (동)</span><span style="font-size:10px; font-weight:700; color:#90CAF9;">≈ 원화</span></div>
+      <div style="border-radius:0 0 12px 12px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+        <div style="background:#1E1600; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">라탄 크로스백/토트백</span> <span style="font-size:9px; font-weight:800; background:#FF6B35; color:#fff; border-radius:4px; padding:1px 5px;">HOT</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">300,000~400,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">150,000~250,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">8,000~13,000원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 안감 재질·지퍼 꼼꼼히 확인. 1층 구매</div></div>
+        <div style="background:#261C00; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">마크라메 네트백</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">200,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">100,000~150,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">5,000~7,500원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 돌돌 말면 부피 거의 없어 캐리어 절약</div></div>
+        <div style="background:#1E1600; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">라탄 모자 (농 라)</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">80,000~120,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">40,000~60,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">2,000~3,000원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 작은 사이즈가 착용 편함. 큰 사이즈는 바람에 날림</div></div>
+      </div>
+    </div>
+
+    <div id="mcat-food" style="display:none;">
+      <div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; padding:6px 12px; background:#0A0800; border-radius:10px 10px 0 0;"><span style="font-size:10px; font-weight:700; color:#FFB300;">처음 부르는 가격</span><span style="font-size:10px; font-weight:700; color:#4CAF50;">흥정 목표가 (동)</span><span style="font-size:10px; font-weight:700; color:#90CAF9;">≈ 원화</span></div>
+      <div style="border-radius:0 0 12px 12px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+        <div style="background:#1E1600; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">망고스틴 (1kg)</span> <span style="font-size:9px; font-weight:800; background:#FF6B35; color:#fff; border-radius:4px; padding:1px 5px;">HOT</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">150,000~180,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">120,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">6,000원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 65번 과일가게와 동일 시세</div></div>
+        <div style="background:#261C00; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">슈슈 땅콩 (100g)</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">35,000동 (정찰)</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">35,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">1,800원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 코코넛·커피·치즈·스파이시 맛</div></div>
+        <div style="background:#1E1600; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">마카다미아</span> <span style="font-size:9px; font-weight:800; background:#FF6B35; color:#fff; border-radius:4px; padding:1px 5px;">HOT</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">200,000~300,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">150,000~200,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">7,500~10,000원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 최인기 기념품. 진공포장 확인 필수</div></div>
+        <div style="background:#261C00; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">말린 망고</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">150,000~200,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">100,000~130,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">5,000~6,500원</div></div></div>
+        <div style="background:#1E1600; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">베트남 커피 (G7 등)</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">100,000~150,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">80,000~120,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">4,000~6,000원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 롯데마트가 더 저렴할 수 있음</div></div>
+      </div>
+    </div>
+
+    <div id="mcat-accessory" style="display:none;">
+      <div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; padding:6px 12px; background:#0A0800; border-radius:10px 10px 0 0;"><span style="font-size:10px; font-weight:700; color:#FFB300;">처음 부르는 가격</span><span style="font-size:10px; font-weight:700; color:#4CAF50;">흥정 목표가 (동)</span><span style="font-size:10px; font-weight:700; color:#90CAF9;">≈ 원화</span></div>
+      <div style="border-radius:0 0 12px 12px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+        <div style="background:#1E1600; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">진주 액세서리</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">150,000~200,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">100,000~160,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">5,000~8,000원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 진주 양식 유명한 나트랑 특산품</div></div>
+        <div style="background:#261C00; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">전통 소품 기념품</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">100,000~200,000동</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">50,000~100,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">2,500~5,000원</div></div></div>
+        <div style="background:#1E1600; padding:12px;"><div style="display:grid; grid-template-columns:1fr 1fr 70px; gap:4px; align-items:center;"><div><span style="font-size:13px; font-weight:700; color:#FFFDF7;">화장실 이용</span><div style="font-size:11px; color:#FF6B35; margin-top:2px;">—</div></div><div><div style="font-size:14px; font-weight:800; color:#4CAF50;">2,000~5,000</div><div style="font-size:10px; color:#666;">동(VND)</div></div><div style="font-size:13px; font-weight:700; color:#90CAF9;">100~250원</div></div><div style="margin-top:6px; padding:5px 8px; background:rgba(255,179,0,0.1); border-radius:6px; font-size:11px; color:#FFE082;">💡 동전 필수 지참!</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin:1.5rem 1rem 0;">
+    <button onclick="toggleTips()" style="width:100%; padding:12px 16px; background:#FFF8E1; border:2px solid #FFB300; border-radius:12px; cursor:pointer; font-family:inherit; font-weight:700; font-size:14px; color:#1A1200; display:flex; justify-content:space-between; align-items:center;">
+      <span>🛒 흥정 & 필수 꿀팁</span><span id="tips-arrow" style="font-size:18px; transition:transform 0.3s;">⌄</span>
+    </button>
+    <div id="tips-panel" style="display:none; background:#1A1200; border-radius:0 0 12px 12px; padding:4px 0 8px; border:2px solid #FFB300; border-top:none;">
+      <div style="padding:10px 16px; display:flex; gap:10px; border-bottom:1px solid #2A2000;"><span>💬</span><span style="font-size:13px; color:#FFE082; line-height:1.5;">흥정 필수! 처음 부르는 가격의 50~60%로 시작하세요</span></div>
+      <div style="padding:10px 16px; display:flex; gap:10px; border-bottom:1px solid #2A2000;"><span>🚶</span><span style="font-size:13px; color:#FFE082; line-height:1.5;">"그냥 가겠다" 태도가 최고의 흥정 무기</span></div>
+      <div style="padding:10px 16px; display:flex; gap:10px; border-bottom:1px solid #2A2000;"><span>💴</span><span style="font-size:13px; color:#FFE082; line-height:1.5;">현금(동) 필수. 소액권 10,000·20,000·50,000동 준비</span></div>
+      <div style="padding:10px 16px; display:flex; gap:10px; border-bottom:1px solid #2A2000;"><span>🎯</span><span style="font-size:13px; color:#FFE082; line-height:1.5;">한 가게에서 묶음 구매 시 할인 폭이 커집니다</span></div>
+      <div style="padding:10px 16px; display:flex; gap:10px; border-bottom:1px solid #2A2000;"><span>🇻🇳</span><span style="font-size:13px; color:#FFE082; line-height:1.5;"><b style="color:#FFB300;">기암 자 디 (Giảm giá đi)</b> = 깎아주세요</span></div>
+      <div style="padding:10px 16px; display:flex; gap:10px; border-bottom:1px solid #2A2000;"><span>👛</span><span style="font-size:13px; color:#FFE082; line-height:1.5;">소매치기 주의! 가방은 앞으로, 현금은 최소한만</span></div>
+      <div style="padding:10px 16px; display:flex; gap:10px; border-bottom:1px solid #2A2000;"><span>🕐</span><span style="font-size:13px; color:#FFE082; line-height:1.5;">오전 8~11시가 가장 활기차고 선택지 많음</span></div>
+      <div style="padding:10px 16px; display:flex; gap:10px;"><span>🏬</span><span style="font-size:13px; color:#FFE082; line-height:1.5;">1층: 기념품·라탄백·과일 / 2층: 의류·크록스</span></div>
+    </div>
+  </div>
+
+  <div style="margin:1rem 1rem 2rem; padding:10px 14px; background:rgba(255,255,255,0.05); border-radius:8px; font-size:11px; color:rgba(255,255,255,0.4); line-height:1.6;">
+    ※ 2025~2026년 여행 후기 기반 시세. 실제 가격은 상점·시기·흥정에 따라 다를 수 있습니다.
+  </div>
+
+</div>
+
+</div><!-- /main -->
+
+<footer>
+  나트랑 6월 2일 출발 · 4박 5일 · 에어부산 BX787/788 · 실제 예약 전 재확인 요망
+</footer>
 
 <script>
   function showSection(id) {
@@ -1169,138 +780,43 @@
     document.getElementById('section-' + id).classList.add('visible');
     document.querySelectorAll('.nav-btn').forEach((b, i) => {
       b.classList.remove('active');
-      if (['schedule','hotel','flight','cost','premium'][i] === id) b.classList.add('active');
+      const ids = ['schedule','hotel','flight','cost','market'];
+      if (ids[i] === id) b.classList.add('active');
     });
   }
+
   function showFamily(id) {
-    ['doyun','yedam','combined'].forEach(f => document.getElementById('cost-' + f).style.display = 'none');
+    document.getElementById('cost-doyun').style.display = 'none';
+    document.getElementById('cost-yedam').style.display = 'none';
+    document.getElementById('cost-combined').style.display = 'none';
     document.getElementById('cost-' + id).style.display = 'block';
     document.querySelectorAll('.ftoggle-btn').forEach((b, i) => {
       b.classList.remove('active');
-      if (['doyun','yedam','combined'][i] === id) b.classList.add('active');
-    });
-  }
-  function showIns(id) {
-    ['compare','price','calc'].forEach(v => document.getElementById('ins-' + v).style.display = 'none');
-    document.getElementById('ins-' + id).style.display = 'block';
-    document.querySelectorAll('.itoggle-btn').forEach((b, i) => {
-      b.classList.remove('active');
-      if (['compare','price','calc'][i] === id) b.classList.add('active');
+      const ids = ['doyun','yedam','combined'];
+      if (ids[i] === id) b.classList.add('active');
     });
   }
 
-  function showInsurance(id) {
-    document.getElementById('ins-compare').style.display = 'none';
-    document.getElementById('ins-price').style.display = 'none';
-    document.getElementById('ins-calc').style.display = 'none';
-    document.getElementById('ins-' + id).style.display = 'block';
-    document.querySelectorAll('.ins-toggle-btn').forEach((b, i) => {
-      b.classList.remove('active');
-      if (['compare','price','calc'][i] === id) b.classList.add('active');
-    });
-  }
-
-
-  function showFt(id) {
-    ['doyun','yedam','combined'].forEach(k => {
-      document.getElementById('ft-' + k).style.display = k === id ? 'block' : 'none';
-    });
-    document.querySelectorAll('.ft-toggle-btn').forEach((b, i) => {
-      b.classList.toggle('active', ['doyun','yedam','combined'][i] === id);
-    });
-  }
-
-
-  function showFt(id) {
-    ['doyun','yedam','combined'].forEach(k => {
-      var el = document.getElementById('ft-' + k);
-      if(el) el.style.display = (k === id) ? 'block' : 'none';
-    });
-    document.querySelectorAll('#section-fasttrack .ftoggle-btn').forEach((b, i) => {
-      b.classList.toggle('active', ['doyun','yedam','combined'][i] === id);
-    });
-  }
-
-
-  (function() {
-    function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
-    function calc() {
-      var massage = parseInt(document.getElementById('massage-slider').value);
-      document.getElementById('massage-display').textContent = fmt(massage);
-
-      var d_total = 34080 + 102400 + 20700 + 43600 + (massage * 2);
-      var y_total = 28280 + 76800 + 20700 + 32700 + (massage * 2);
-      var d_premium = 199600;
-      var y_premium = 159700;
-      var both_premium = 359300;
-
-      document.getElementById('d-massage-val').textContent = fmt(massage * 2);
-      document.getElementById('d-total-val').textContent = fmt(d_total);
-      document.getElementById('d-ind-disp').textContent = fmt(d_total) + '+α';
-
-      document.getElementById('y-massage-val').textContent = fmt(massage * 2);
-      document.getElementById('y-total-val').textContent = fmt(y_total);
-      document.getElementById('y-ind-disp').textContent = fmt(y_total) + '+α';
-
-      var both_ind = d_total + y_total;
-      document.getElementById('both-ind-val').textContent = fmt(both_ind) + '+α';
-
-      // 도윤 결과
-      var d_diff = d_total - d_premium;
-      var dRes = document.getElementById('d-result');
-      var dTxt = document.getElementById('d-result-txt');
-      var dSub = document.getElementById('d-result-sub');
-      if (d_diff > 0) {
-        dRes.style.background = 'rgba(224,122,95,0.1)';
-        dTxt.style.color = '#993C1D';
-        dTxt.textContent = '개별 구매가 ' + fmt(d_diff) + ' 더 비쌈 → 프리미엄팩 유리';
-        dSub.style.color = '#993C1D'; dSub.textContent = '러브레터 포함 시 격차 더 커짐';
-      } else {
-        dRes.style.background = 'rgba(11,122,117,0.08)';
-        dTxt.style.color = '#085041';
-        dTxt.textContent = '개별 구매가 ' + fmt(Math.abs(d_diff)) + ' 더 저렴';
-        dSub.style.color = '#085041'; dSub.textContent = '러브레터 미포함 기준';
+  const marketColors = {shoes:'#FF6B35', clothes:'#E040FB', bag:'#00BFA5', food:'#FFB300', accessory:'#64B5F6'};
+  function showMarketCat(id) {
+    ['shoes','clothes','bag','food','accessory'].forEach(cat => {
+      document.getElementById('mcat-' + cat).style.display = cat === id ? 'block' : 'none';
+      const btn = document.getElementById('mbtn-' + cat);
+      if (btn) {
+        btn.style.background = cat === id ? marketColors[cat] : '#2A2000';
+        btn.style.color = cat === id ? 'white' : '#aaa';
       }
-
-      // 예담 결과
-      var y_diff = y_total - y_premium;
-      var yRes = document.getElementById('y-result');
-      var yTxt = document.getElementById('y-result-txt');
-      var ySub = document.getElementById('y-result-sub');
-      if (y_diff > 0) {
-        yRes.style.background = 'rgba(224,122,95,0.1)';
-        yTxt.style.color = '#993C1D';
-        yTxt.textContent = '개별 구매가 ' + fmt(y_diff) + ' 더 비쌈 → 프리미엄팩 유리';
-        ySub.style.color = '#993C1D'; ySub.textContent = '러브레터 포함 시 격차 더 커짐';
-      } else {
-        yRes.style.background = 'rgba(11,122,117,0.08)';
-        yTxt.style.color = '#085041';
-        yTxt.textContent = '개별 구매가 ' + fmt(Math.abs(y_diff)) + ' 더 저렴';
-        ySub.style.color = '#085041'; ySub.textContent = '러브레터 미포함 기준';
-      }
-
-      // 합산 차액
-      var both_diff = both_ind - both_premium;
-      var bothEl = document.getElementById('both-diff-val');
-      if (both_diff > 0) {
-        bothEl.style.color = '#E07A5F';
-        bothEl.textContent = '개별이 ' + fmt(both_diff) + ' 더 비쌈';
-      } else {
-        bothEl.style.color = '#0B7A75';
-        bothEl.textContent = '개별이 ' + fmt(Math.abs(both_diff)) + ' 더 저렴';
-      }
-    }
-    window._premiumCalc = calc;
-    document.addEventListener('DOMContentLoaded', function() {
-      var sl = document.getElementById('massage-slider');
-      if (sl) { sl.addEventListener('input', calc); calc(); }
     });
-    setTimeout(function() {
-      var sl = document.getElementById('massage-slider');
-      if (sl) { sl.addEventListener('input', calc); calc(); }
-    }, 300);
-  })();
+  }
 
+  function toggleTips() {
+    const panel = document.getElementById('tips-panel');
+    const arrow = document.getElementById('tips-arrow');
+    const open = panel.style.display === 'none';
+    panel.style.display = open ? 'block' : 'none';
+    arrow.style.transform = open ? 'rotate(180deg)' : 'none';
+  }
 </script>
+
 </body>
 </html>
